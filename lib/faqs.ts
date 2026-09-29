@@ -13,7 +13,7 @@ export const faqs = [
   },
   {
     q: "What areas in the DMV do you service?",
-    a: "We service the entire Washington DC metro region, Northern Virginia (Fairfax, Arlington, Alexandria, Loudoun, Prince William, McLean, Reston, Vienna), and Maryland (Montgomery County, Prince George's County, Bethesda, Rockville, Silver Spring, Gaithersburg, and surrounding areas).",
+    a: "We service customers within 40 miles of Washington, DC, covering the District, Northern Virginia (Fairfax, Arlington, Alexandria, Loudoun, Prince William, McLean, Reston, Vienna) and Maryland (Montgomery County, Prince George's County, Bethesda, Rockville, Silver Spring, Gaithersburg, and surrounding areas). Enter your ZIP code on our Service Area page to confirm, or call us if you're near the edge.",
   },
   {
     q: "Do you have legal licensing and insurance?",

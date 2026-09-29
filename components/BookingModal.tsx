@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useBookingSubmit } from "@/components/useBookingSubmit";
+import { BOOKING_SERVICE_LABELS } from "@/lib/appliances";
 import HoneypotField from "@/components/HoneypotField";
 import { X, Calendar, Phone, CheckCircle2, ShieldCheck, Tag, Sparkles } from "lucide-react";
 
@@ -111,14 +112,13 @@ export default function BookingModal({
                 <select id="modal-1"
                   value={service}
                   onChange={(e) => setService(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer"
                 >
-                  <option value="Refrigerators & Freezers">Refrigerators & Freezers</option>
-                  <option value="Washers (Front & Top Load)">Washers (Front & Top Load)</option>
-                  <option value="Dryers (Gas & Electric)">Dryers (Gas & Electric)</option>
-                  <option value="Dishwashers">Dishwashers</option>
-                  <option value="Ranges, Ovens & Cooktops">Ranges, Ovens & Cooktops</option>
-                  <option value="Garbage Disposals">Garbage Disposals</option>
+                  {BOOKING_SERVICE_LABELS.map((label) => (
+                    <option key={label} value={label}>
+                      {label}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -132,7 +132,7 @@ export default function BookingModal({
                   placeholder="Full Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
                 />
               </div>
 
@@ -146,7 +146,7 @@ export default function BookingModal({
                   placeholder="name@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
                 />
               </div>
 
@@ -161,7 +161,7 @@ export default function BookingModal({
                     placeholder="(571) 459-8155"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
                   />
                 </div>
 
@@ -175,7 +175,7 @@ export default function BookingModal({
                     placeholder="e.g. 22102, 20001"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
                   />
                 </div>
               </div>
@@ -189,7 +189,7 @@ export default function BookingModal({
                   placeholder="e.g. Samsung refrigerator warm, Whirlpool washer not spinning..."
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none"
                 />
               </div>
 

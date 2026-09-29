@@ -30,6 +30,7 @@
   - **Monday – Friday**: 8:00 AM – 5:00 PM
   - **Saturday**: 9:00 AM – 4:00 PM
   - **Sunday**: Closed
+- **Service radius**: **40 miles from Washington, DC** (hard limit), enforced by ZIP code (see section 7).
 - **Geographic Coverage**: Washington DC, Maryland (Montgomery & Prince George's counties, Bethesda, Rockville, Silver Spring, Gaithersburg), and Northern Virginia (Fairfax, Arlington, Alexandria, Loudoun, Prince William, McLean, Reston, Vienna). Service-area business: no public street address.
 
 ### Official Social Channels
@@ -59,9 +60,9 @@ The application uses a **unified, modern clean white light theme** designed for 
 
 ---
 
-## 5. The 6 Core Appliance Specializations
+## 5. The 7 Appliance Specializations
 
-Defined in `components/ServicesSection.tsx` (homepage tabs) and `components/ServicesClient.tsx` (`/services` cards). Keep the two in sync.
+Defined once in `lib/appliances.ts` (name, slug, booking label, symptoms, turnaround). It feeds the homepage appliance tiles and panel, all booking forms and the footer links. **Microwaves** was added as a 7th appliance from the client mockup (no HVAC).
 
 ### 1. Refrigerators & Freezers
 - **Coverage**: French door, side-by-side, built-in columns, bottom freezer units, and automatic ice makers.
@@ -91,68 +92,35 @@ Defined in `components/ServicesSection.tsx` (homepage tabs) and `components/Serv
 
 ## 6. Architecture & Component Structure
 
-> **Page pattern:** every `page.tsx` is a **server component** that exports `metadata`; the interactive UI lives in a `*Client.tsx` component marked `"use client"`. Never add `"use client"` to a `page.tsx`, or it can no longer export metadata.
+> **Single-page site.** Everything lives on `/`. Header links are `#anchors` (`#home`, `#services`, `#about`, `#service-area`, `#reviews`, `#contact`) with a scroll-spy highlight. The old `/services`, `/services/<slug>`, `/about`, `/service-area`, `/reviews` and `/contact` URLs 308-redirect to the matching section (`next.config.ts`). `app/page.tsx` is a server component; interactive pieces are small client components. Never add `"use client"` to a `page.tsx`, or it can no longer export metadata.
 
 ```
 smart_appliance_services/
 ├── app/
-│   ├── globals.css         # Tailwind CSS v4, brand tokens, hover/press/dropdown motion
-│   ├── layout.tsx          # next/font, metadataBase, title template, default OG/Twitter, LocalBusiness JSON-LD
-│   ├── opengraph-image.tsx # Dynamic 1200x630 OpenGraph social card
-│   ├── favicon.ico, icon.png, apple-icon.png   # Favicon set cropped from the logo
-│   ├── manifest.ts         # Web manifest (home-screen icons)
-│   ├── page.tsx            # `/` server page: metadata + FAQPage JSON-LD -> HomeClient
-│   ├── robots.ts           # Search engine crawling directives
-│   ├── sitemap.ts          # XML sitemap (add new routes here)
-│   ├── actions/
-│   │   ├── booking.ts      # "use server" submitBooking(): validate -> honeypot -> reference -> Resend batch
-│   │   └── booking.test.ts
-│   ├── contact/
-│   │   └── page.tsx        # `/contact` server page + metadata -> ContactClient
-│   └── services/
-│       └── page.tsx        # `/services` server page + metadata -> ServicesClient
+│   ├── page.tsx            # `/`: metadata + FAQPage JSON-LD, composes the sections inside <SiteShell>
+│   ├── layout.tsx          # next/font, metadataBase, title template, LocalBusiness JSON-LD
+│   ├── globals.css         # Tailwind v4, brand tokens, motion helpers, reviews marquee
+│   ├── actions/booking.ts  # "use server" submitBooking(): validate -> honeypot -> reference -> Resend batch
+│   └── sitemap.ts, robots.ts, manifest.ts, opengraph-image.tsx
 ├── components/
-│   ├── HomeClient.tsx      # Home page body + booking/social modal state ("use client")
-│   ├── ServicesClient.tsx  # 6-appliance service catalog ("use client")
-│   ├── ContactClient.tsx   # Contact details + dispatch form ("use client")
-│   ├── Navbar.tsx          # Floating white pill: logo, center Home/Services/Contact, phone, Book, QR
-│   ├── CustomSidebar.tsx   # NOT wired in yet: shared SidebarPanel + `CustomSidebar` (mobile/tablet drawer, xl:hidden) + `DesktopSidebar` (fixed 288px always-visible panel, xl+)
-│   ├── Hero.tsx            # High-conversion hero with diagnostic badge & appliance selector
-│   ├── Brands.tsx          # Factory-trained brand grid (Samsung, LG, Whirlpool, Bosch, etc.)
-│   ├── AboutAdSection.tsx  # Company history (est. 2021, 15+ yrs exp) with technician visual
-│   ├── ServicesSection.tsx # Interactive 6-appliance service showcase
-│   ├── Estimator.tsx       # $89 diagnostic estimator for the 6 appliance categories (no HVAC)
-│   ├── WhyUs.tsx           # 6 core trust pillars (15+ yrs exp, 10+ warranty partners, 30-day warranty)
-│   ├── HowItWorks.tsx      # 4-step dispatch workflow (Schedule → Diagnose → Approve → Guarantee)
-│   ├── Reviews.tsx         # Customer testimonials (currently hardcoded, see Open Items)
-│   ├── BookingSection.tsx  # Full in-page appointment scheduling form
-│   ├── BookingModal.tsx    # Fast dispatch popup modal accessible from all CTA buttons
-│   ├── useBookingSubmit.ts # Client hook: attempt id, pending/error/reference state, double-submit guard
-│   ├── HoneypotField.tsx   # Off-screen spam trap shared by the three booking forms
-│   ├── SocialModal.tsx     # Dedicated modal for connecting on Facebook and Instagram
-│   ├── SocialBarcodeHub.tsx# Facebook / Instagram / Google-review QR hub
-│   ├── QrCodeCard.tsx      # Standalone scannable QR card generator component
-│   ├── FAQSection.tsx      # Accordion (starts collapsed) with per-question icons
-│   ├── JsonLd.tsx          # Renders a JSON-LD <script> (escapes "<")
-│   └── Footer.tsx          # Complete company footer with embedded interactive scannable QR codes
+│   ├── SiteShell.tsx       # Navbar + Footer + booking/social modals; `useSite()` gives openBooking/openSocial
+│   ├── Navbar.tsx          # Floating pill, anchor links + scroll-spy, animated mobile dropdown
+│   ├── BookButton.tsx      # Client button that opens the booking popup (keeps sections server-rendered)
+│   ├── ZipChecker.tsx      # 40-mile ZIP check (in / out / invalid)
+│   ├── BookingSection.tsx  # Compact inline booking form (optionally locked to one appliance)
+│   ├── BookingModal.tsx    # Booking popup opened from any CTA
+│   ├── Reviews.tsx         # Auto-scrolling CSS marquee of testimonials
+│   ├── home/               # HomeHero, ServicesSection (tiles + panel + form), WhyChoose, AboutSection,
+│   │                       # ServiceAreaSection, ContactSection, CtaBar
+│   └── ...                 # Brands, AboutAdSection, FAQSection, Footer, modals, QR components
 ├── lib/
-│   ├── faqs.ts             # FAQ Q&A: single source for the accordion and FAQPage schema
-│   ├── jsonld.ts           # localBusinessJsonLd, faqJsonLd
-│   ├── site.ts             # SITE_URL (from NEXT_PUBLIC_SITE_URL), name, phone, email, socials
-│   └── booking/
-│       ├── validate.ts     # Raw input -> typed BookingRequest
-│       ├── reference.ts    # Deterministic SMART-XXXXXX reference + idempotency key
-│       ├── emails.ts       # Customer + dispatch email templates (HTML-escaped)
-│       └── *.test.ts       # Vitest unit tests
-├── public/
-│   ├── smart-logo.jpeg     # Official Smart Appliance Services logo (source for favicons)
-│   ├── icon-192.png, icon-512.png   # Web-manifest icons
-│   ├── smart-technician.png# Professional certified technician illustration
-│   └── ad.jpeg             # Promotional flyer and advertisement asset
-├── docs/superpowers/specs/ # Design docs (Resend booking emails)
-├── localhost-audit/        # SEO audit output; gitignored (.gitignore)
-├── package.json            # Next.js 16, React 19, Tailwind CSS v4, Lucide React, QRCode, Resend, Vitest
-└── project.md              # Project documentation and specifications
+│   ├── appliances.ts       # The 7 appliances (single source of truth)
+│   ├── service-area.ts     # checkZip(), extractZip(), haversineMiles()
+│   ├── service-area-zips.ts# GENERATED: ZIPs within 40 miles of DC (do not edit by hand)
+│   ├── reviews.ts, faqs.ts, jsonld.ts, site.ts
+│   └── booking/            # validate (incl. 40-mile ZIP rule), reference, emails, tests
+├── scripts/generate-service-area.mjs   # Rebuilds service-area-zips.ts from the Census ZCTA gazetteer
+└── next.config.ts          # Redirects from the old multi-page URLs
 ```
 
 ---
@@ -160,21 +128,29 @@ smart_appliance_services/
 ## 7. Key Interactive Features
 
 1. **Header & Fast Booking**:
-   - Floating white glass pill, centered (`max-w-5xl`). Desktop: logo | Home / Services / Contact | phone + Book Service + QR (opens `SocialModal`). Hamburger is **hidden on PC**.
-   - Mobile: phone icon, compact Book, and hamburger. The menu **drops down inside the header** (Home / Services / Contact in a 3-column row). It is not a right-side drawer and not a centered popup. Clicking the hamburger again (or the dim backdrop / Escape) closes it.
-   - Inner pages (`/services`, `/contact`) use the same top offset as home (`pt-14 sm:pt-20`) so content sits tight under the bar.
-2. **Dynamic Estimator**:
+   - Floating white pill (`max-w-6xl`). Desktop (lg+): logo | Home / Services / About Us / Service Area / Reviews / Contact | phone + Book Service + QR (opens `SocialModal`). Links scroll to sections and the current section is highlighted.
+   - Below lg: phone icon, Book and a hamburger. The menu is always mounted and animates with a `grid-template-rows` height transition (no layout jump), a staggered link fade and an icon cross-fade. It is `inert` when closed and closes on link click, backdrop tap or Escape.
+   - The hero runs to the very top of the page behind the floating header (no white gap).
+2. **Dynamic Estimator (not currently shown; `components/Estimator.tsx` is kept but unused)**:
    - Six appliance categories only (including Garbage Disposals). No HVAC or duct cleaning. Shows the transparent $89 diagnostic breakdown (100% credited with repair).
 3. **Embedded Footer QR Code Scanner**:
    - Real-time client-side QR generator in the footer allowing customers to switch between **Facebook**, **Instagram**, and **Direct Call Desk** to scan via phone camera.
 4. **Fast Dispatch Booking Engine**:
-   - Three forms (in-page `BookingSection`, `BookingModal` popup on every page, and the `/contact` form) all submit through one server action, `submitBooking` in `app/actions/booking.ts`.
+   - Two form components (the inline `BookingSection`, used in each appliance panel and in the Contact section, and the `BookingModal` popup opened from every CTA) submit through one server action, `submitBooking` in `app/actions/booking.ts`.
    - Flow: validate and normalise input -> honeypot check -> derive the `SMART-XXXXXX` reference from the form's attempt id -> `resend.batch.send` of **one confirmation email to the customer and one dispatch notification to the business**, with an idempotency key so retries never double-send.
    - The same reference is shown on the success screen and in both emails. Email is required on every form. There is no database; bookings live in the emails. Full design: `docs/superpowers/specs/2026-09-28-resend-booking-emails-design.md`.
 5. **Interactive FAQ & Local Schema**:
    - Accordion starts **fully collapsed**. Each question has its own icon (diagnostic fee, warranty, home-warranty partners, service area, licensing, hours, social/QR). `lib/faqs.ts` feeds both the accordion and FAQPage JSON-LD; LocalBusiness JSON-LD is emitted from the root layout.
 6. **Hover / click motion**:
    - Primary CTAs use a sheen + press (`.btn-cta`). Nav chips, icon buttons, and service cards lift and compress on hover/click. Menu dropdown animates from the header. Motion is disabled when `prefers-reduced-motion` is set.
+
+7. **Appliance selector + inline booking**:
+   - On `#services`, tapping an appliance tile opens that appliance's panel: problems we fix, turnaround, a ZIP check and a compact booking form. The tile choice is the `service` sent with the booking.
+8. **40-mile service area**:
+   - `ZipChecker` tells the customer whether their ZIP is in area. The same rule is enforced **server-side** in `validateBooking` (the address must contain a 5-digit ZIP inside the radius), so the widget cannot be bypassed.
+   - Radius and center are `SERVICE_RADIUS_MILES` / `SERVICE_CENTER` in `lib/site.ts`. After changing them, run `node scripts/generate-service-area.mjs <2023_Gaz_zcta_national.txt>` (US Census ZCTA gazetteer) to regenerate `lib/service-area-zips.ts`; a unit test fails if the two drift. ZIP centers are approximate, so results near the 40-mile edge can be off by a mile or two.
+9. **Reviews marquee**:
+   - `Reviews.tsx` renders the testimonials twice and slides the track by exactly half its width in pure CSS (`.marquee-track`): seamless loop, no JS scrolling, pauses on hover/touch, static and swipeable under `prefers-reduced-motion`.
 
 ---
 
@@ -219,9 +195,20 @@ Set in `.env` (gitignored; never commit values):
 | Variable | Purpose |
 | :--- | :--- |
 | `RESEND_API_KEY` | Resend API key |
-| `BOOKING_NOTIFY_EMAIL` | Inbox that receives dispatch notifications |
-| `BOOKING_FROM_EMAIL` | Sender address; must be on a domain verified in Resend |
+| `BOOKING_NOTIFY_EMAIL` | Inbox that receives dispatch notifications (currently the Gmail, `smart.applianceservices.va@gmail.com`) |
+| `BOOKING_FROM_EMAIL` | Sender address; must be on a domain verified in Resend (currently `Smart Appliance Services <booking@smart-applianceservices.com>`) |
 | `NEXT_PUBLIC_SITE_URL` | **Production origin**, e.g. `https://www.example.com`. Drives `metadataBase`, canonicals, sitemap, robots and JSON-LD URLs. Defaults to `http://localhost:3000`, so **set it before deploying**. |
+
+### Deployment (Vercel)
+
+- **Project:** `smart-appliances-services` in the `elegacys-projects` Vercel team, connected to GitHub repo `Ahmadn1103/smart_appliances_services` (branch `main`). Live at **https://smart-appliances-services.vercel.app**.
+- **No `vercel.json` is needed.** Vercel auto-detects Next.js 16 (build `next build`, install `npm install`, Node 24.x). Add one only if you need redirects, headers, or custom build settings.
+- **`.env` is gitignored, so it never reaches Vercel.** Environment variables must be set in the Vercel project (Settings > Environment Variables, or `vercel env add <NAME> production`). Production currently has `RESEND_API_KEY`, `BOOKING_NOTIFY_EMAIL` and `BOOKING_FROM_EMAIL`. **`NEXT_PUBLIC_SITE_URL` is not set yet.** It is inlined at build time, so after changing any variable, redeploy (`vercel deploy --prod`) for it to take effect.
+- **Preview deployments** have no env vars on purpose, so branch previews cannot send real booking emails; they show the "please call us" error on submit.
+- **Verified 2026-09-28:** a booking submitted on the live `/contact` form returned a `SMART-` reference and both emails (customer confirmation and dispatch notification) were delivered.
+- **Email addressing (checked 2026-09-29):** Resend shows `smart-applianceservices.com` as **verified**, so both emails are sent from `booking@smart-applianceservices.com`. The customer confirmation goes to the address the customer entered, with replies routed to the business Gmail. The dispatch notification goes to the business Gmail, with replies routed to the customer. The domain has **no MX records**, so it can send but cannot receive mail; `booking@` is a sender only, not an inbox. To receive at the domain later, add forwarding or a mailbox (GoDaddy DNS), then point `BOOKING_NOTIFY_EMAIL` at it locally and on Vercel, and redeploy.
+- **Install note:** `vitest` was installed with `--legacy-peer-deps` because npm's resolver crashed on its peer set with `@types/node@^20`. `npm ci` from the committed lockfile works, which is what Vercel runs.
+- The `.vercel/` folder (local project link) is gitignored.
 
 ---
 
@@ -234,15 +221,14 @@ Baseline audit and prioritized plan: `localhost-audit/FULL-AUDIT-REPORT.md` and 
 - JSON-LD: LocalBusiness (`HomeAndConstructionBusiness`) in the layout, FAQPage on the homepage. **No Review/AggregateRating markup on purpose**, because the on-page testimonials are hardcoded and not verifiable.
 - One H1 per page, form labels tied to inputs, self-hosted fonts.
 
-When adding a page: export `metadata` with `alternates.canonical` and its own `openGraph` (Open Graph is **not** deep-merged from the layout), and add the URL to `app/sitemap.ts`.
+The site is a single page, so there is one canonical URL (`/`) and one sitemap entry. If a real page is added later, export `metadata` with `alternates.canonical` and its own `openGraph` (Open Graph is **not** deep-merged from the layout) and add the URL to `app/sitemap.ts`. The mockup wording "free estimate" was deliberately not used: the business charges an $89 diagnostic (credited toward repair).
 
 ---
 
 ## 11. Open Items
 
-- **Reviews:** `components/Reviews.tsx` uses hardcoded testimonials with relative dates, and the copy claims "Verified 5-star ratings" / "Trusted by Hundreds". Replace with real Google reviews or remove or soften the claims.
+- **Reviews:** `lib/reviews.ts` holds hardcoded testimonials (the "Verified" and "Trusted by Hundreds" wording was removed). Replace with real Google reviews before adding any Review schema.
 - **Google review URL:** Instagram is unified as `@ssmartappliance`. `SocialBarcodeHub` still uses a placeholder Google link (`https://g.page/r/smartapplianceservices`). Confirm the live GBP URL and put Facebook, Instagram, and Google in `lib/site.ts`.
-- **Sidebar (decision pending):** the requested design is an always-visible left sidebar on PC (xl, 1280px+) with the slide-out drawer on mobile/tablet. `components/CustomSidebar.tsx` already provides both (`DesktopSidebar` and `CustomSidebar`), but `Navbar.tsx` currently uses its own dropdown menu and does not import them. To adopt it: render `<DesktopSidebar>` and `<CustomSidebar>` in `Navbar`, add `xl:left-72` to the fixed header, hide the hamburger and center nav links at `xl`, and add `xl:pl-72` to the `<body>` in `app/layout.tsx`. Otherwise delete `CustomSidebar.tsx` and keep the dropdown.
-- **Deploy:** set `NEXT_PUBLIC_SITE_URL`, verify in Google Search Console and Bing Webmaster Tools, then re-run the SEO audit against production.
-- **Content to build:** per-appliance pages (`/services/<appliance>-repair`), service-area pages, an About page with license and insurance details, a Google Business Profile.
+- **Deploy (in progress):** the site is live on Vercel but `NEXT_PUBLIC_SITE_URL` is unset, so canonicals, sitemap, robots and JSON-LD still point at `http://localhost:3000`. Set it to the real domain in Vercel and redeploy, attach the custom domain, then verify in Google Search Console and Bing Webmaster Tools and re-run the SEO audit against production.
+- **Content to build:** real Google reviews (the mockup shows "5-Star Reviews on Google"; ours are unverified), license and insurance details in the About section, a Google Business Profile. **Confirm the phone number:** the client mockup shows 571-462-1814 but the site uses (571) 459-8155.
 - **Cleanup:** `public/` still holds duplicate logos; `package.json` name is still `eco_appliance_services`; `README.md` is the create-next-app default. `.gitignore` now excludes `.playwright-mcp/` and `localhost-audit/`.

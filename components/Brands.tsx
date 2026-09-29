@@ -37,16 +37,16 @@ export default function Brands() {
         </div>
 
         {/* Brands Grid with Clean White Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-4">
           {brands.map((brand, idx) => (
             <div
               key={idx}
-              className="p-4 rounded-2xl border border-slate-200 bg-white hover:border-blue-500 hover:shadow-md hover:bg-blue-50/30 hover:-translate-y-0.5 transition-all duration-200 text-center flex flex-col justify-center items-center h-20 group"
+              className="p-2 sm:p-4 rounded-2xl border border-slate-200 bg-white hover:border-blue-500 hover:shadow-md hover:bg-blue-50/30 hover:-translate-y-0.5 transition-all duration-200 text-center flex flex-col justify-center items-center h-14 sm:h-20 group"
             >
-              <p className="text-sm font-black text-slate-900 tracking-tight group-hover:text-blue-600 transition-colors">
+              <p className="text-xs sm:text-sm font-black text-slate-900 tracking-tight leading-tight group-hover:text-blue-600 transition-colors">
                 {brand.name}
               </p>
-              <p className="text-[10px] text-slate-500 font-medium mt-0.5">
+              <p className="hidden sm:block text-[10px] text-slate-500 font-medium mt-0.5">
                 {brand.type}
               </p>
             </div>

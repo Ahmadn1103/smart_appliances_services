@@ -91,6 +91,22 @@ describe("validateBooking", () => {
     invalid({ ...base, phone }),
   );
 
+  it("rejects an address with no ZIP code", () => {
+    const result = validateBooking({ ...base, address: "123 Main St, Arlington VA" });
+    expect(result.status).toBe("invalid");
+    if (result.status === "invalid") expect(result.error).toMatch(/ZIP/);
+  });
+
+  it("rejects a ZIP outside the 40-mile service area", () => {
+    const result = validateBooking({ ...base, address: "1 Market St, Frederick MD 21701" });
+    expect(result.status).toBe("invalid");
+    if (result.status === "invalid") expect(result.error).toMatch(/21701.*40-mile/);
+  });
+
+  it("accepts a bare in-area ZIP", () => {
+    valid({ ...base, address: "22030" });
+  });
+
   it("rejects over-long fields", () => {
     invalid({ ...base, name: "a".repeat(101) });
     invalid({ ...base, address: "a".repeat(201) });

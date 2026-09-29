@@ -1,3 +1,6 @@
+import { checkZip, extractZip } from "../service-area";
+import { SERVICE_RADIUS_MILES } from "../site";
+
 export type BookingFields = {
   service: string;
   name: string;
@@ -106,6 +109,14 @@ export function validateBooking(raw: unknown, now: Date = new Date()): Validatio
     notes.length > 1000
   ) {
     return invalid("One of the fields is too long. Please shorten it and try again.");
+  }
+
+  const zip = extractZip(address);
+  if (!zip) return invalid("Please include your 5-digit ZIP code so we can confirm we service your area.");
+  if (checkZip(zip) !== "in") {
+    return invalid(
+      `Sorry, ${zip} is outside our ${SERVICE_RADIUS_MILES}-mile service area around Washington, DC. Please call us if you're near the edge.`,
+    );
   }
 
   if (date) {

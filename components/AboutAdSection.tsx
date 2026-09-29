@@ -54,7 +54,7 @@ export default function AboutAdSection({ onOpenBooking }: AboutAdSectionProps) {
   ];
 
   return (
-    <section className="py-14 sm:py-20 lg:py-24 bg-white text-slate-900 relative overflow-hidden border-b border-slate-200">
+    <section className="py-8 sm:py-16 lg:py-20 bg-white text-slate-900 relative overflow-hidden border-b border-slate-200">
       {/* Background ambient lighting */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-blue-100/50 blur-[130px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-cyan-100/40 blur-[130px] pointer-events-none" />
@@ -92,7 +92,7 @@ export default function AboutAdSection({ onOpenBooking }: AboutAdSectionProps) {
         </div>
 
         {/* Center Grid: Story & Visual */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center py-10 sm:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 items-center py-6 sm:py-12">
           
           {/* Left Text & Value Pillars (7 cols) */}
           <div className="lg:col-span-7 space-y-6">
@@ -106,7 +106,7 @@ export default function AboutAdSection({ onOpenBooking }: AboutAdSectionProps) {
             </div>
 
             {/* Contract Highlights Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               {pillars.map((pillar, idx) => {
                 const IconComponent = pillar.icon;
                 return (
@@ -125,7 +125,7 @@ export default function AboutAdSection({ onOpenBooking }: AboutAdSectionProps) {
                     <h3 className="text-sm font-bold text-slate-900 mb-1">
                       {pillar.title}
                     </h3>
-                    <p className="text-xs text-slate-600 leading-relaxed">
+                    <p className="hidden sm:block text-xs text-slate-600 leading-relaxed">
                       {pillar.description}
                     </p>
                   </div>
@@ -137,14 +137,13 @@ export default function AboutAdSection({ onOpenBooking }: AboutAdSectionProps) {
           {/* Right Visual Image Frame (5 cols) */}
           <div className="lg:col-span-5 flex justify-center">
             <div className="relative w-full max-w-md rounded-3xl overflow-hidden border border-slate-200 shadow-xl bg-white p-3">
-              <div className="relative h-80 sm:h-96 w-full rounded-2xl overflow-hidden bg-slate-100">
+              <div className="relative h-64 sm:h-96 w-full rounded-2xl overflow-hidden bg-slate-100">
                 <Image
                   src="/smart-technician.png"
                   alt="Smart Appliance Services Master Technician"
                   fill
                   sizes="(max-width: 768px) 100vw, 420px"
                   className="object-cover object-top hover:scale-105 transition-transform duration-500"
-                  priority
                 />
                 
                 {/* Floating Badge */}

@@ -9,3 +9,8 @@ export const SOCIAL_LINKS = [
   "https://www.facebook.com/smartapplianceservicess/",
   "https://instagram.com/ssmartappliance",
 ];
+
+// Service area: ZIPs whose center is within this many miles of Washington, DC.
+// If you change either value, re-run scripts/generate-service-area.mjs.
+export const SERVICE_RADIUS_MILES = 40;
+export const SERVICE_CENTER = { lat: 38.9072, lng: -77.0369 } as const;

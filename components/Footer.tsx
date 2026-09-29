@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { APPLIANCES } from "@/lib/appliances";
 import QRCode from "qrcode";
 import { Phone, Mail, MapPin, ShieldCheck, Clock, Tag, QrCode, ArrowRight, ExternalLink } from "lucide-react";
 
@@ -154,45 +155,27 @@ export default function Footer({ onOpenSocial }: FooterProps) {
               <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
               <span>Services</span>
             </h4>
-            <ul className="space-y-2 text-xs sm:text-sm text-slate-600">
+            <ul className="space-y-0.5 sm:space-y-2 text-xs sm:text-sm text-slate-600 [&_a]:inline-block [&_a]:py-1.5 sm:[&_a]:py-0">
+              {APPLIANCES.map((appliance) => (
+                <li key={appliance.slug}>
+                  <Link href="#services" className="hover:text-blue-600 transition-colors">
+                    {appliance.name}
+                  </Link>
+                </li>
+              ))}
               <li>
-                <Link href="/services#refrigeration" className="hover:text-blue-600 transition-colors">
-                  Refrigerators
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#washers" className="hover:text-blue-600 transition-colors">
-                  Washers
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#dryers" className="hover:text-blue-600 transition-colors">
-                  Dryers
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#dishwashers" className="hover:text-blue-600 transition-colors">
-                  Dishwashers
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#ranges-ovens" className="hover:text-blue-600 transition-colors">
-                  Ranges & Ovens
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#garbage-disposals" className="hover:text-blue-600 transition-colors">
-                  Garbage Disposals
+                <Link href="#service-area" className="hover:text-blue-600 transition-colors">
+                  Service Area (40 miles)
                 </Link>
               </li>
             </ul>
 
             <div className="pt-1">
               <Link
-                href="/services"
+                href="#services"
                 className="inline-flex items-center gap-1 text-xs text-blue-600 hover:text-blue-700 font-bold"
               >
-                <span>Full Catalog</span>
+                <span>All Services</span>
                 <ArrowRight className="w-3 h-3" />
               </Link>
             </div>
