@@ -41,11 +41,11 @@ export default function BookingModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm menu-veil">
-      <div className="menu-panel relative w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden text-slate-900">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-900/60 backdrop-blur-sm menu-veil">
+      <div className="menu-panel relative w-full max-w-lg max-h-[calc(100dvh-1rem)] sm:max-h-[calc(100dvh-2rem)] flex flex-col bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden text-slate-900">
         
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-slate-50">
+        <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-200 bg-slate-50 shrink-0">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-xl bg-blue-100 flex items-center justify-center text-blue-600">
               <Calendar className="w-4 h-4" />
@@ -64,7 +64,7 @@ export default function BookingModal({
         </div>
 
         {/* Modal Body */}
-        <div className="p-6">
+        <div className="p-4 sm:p-6 overflow-y-auto overscroll-contain">
           {reference ? (
             <div className="text-center py-6 space-y-4">
               <div className="w-16 h-16 bg-emerald-50 text-emerald-600 border border-emerald-200 rounded-full flex items-center justify-center mx-auto shadow-sm">
@@ -103,16 +103,16 @@ export default function BookingModal({
               </div>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-2.5 sm:space-y-4">
               <HoneypotField value={website} onChange={setWebsite} />
               <div>
-                <label htmlFor="modal-1" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                <label htmlFor="modal-1" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 sm:mb-1.5">
                   Appliance Service Needed
                 </label>
                 <select id="modal-1"
                   value={service}
                   onChange={(e) => setService(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer"
+                  className="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer"
                 >
                   {BOOKING_SERVICE_LABELS.map((label) => (
                     <option key={label} value={label}>
@@ -123,7 +123,7 @@ export default function BookingModal({
               </div>
 
               <div>
-                <label htmlFor="modal-2" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                <label htmlFor="modal-2" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 sm:mb-1.5">
                   Your Name
                 </label>
                 <input id="modal-2"
@@ -132,12 +132,12 @@ export default function BookingModal({
                   placeholder="Full Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 placeholder-slate-400 placeholder:text-xs sm:placeholder:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
                 />
               </div>
 
               <div>
-                <label htmlFor="modal-3" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                <label htmlFor="modal-3" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 sm:mb-1.5">
                   Email Address
                 </label>
                 <input id="modal-3"
@@ -146,13 +146,13 @@ export default function BookingModal({
                   placeholder="name@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 placeholder-slate-400 placeholder:text-xs sm:placeholder:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
                 />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2 sm:gap-3">
                 <div>
-                  <label htmlFor="modal-4" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                  <label htmlFor="modal-4" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 sm:mb-1.5">
                     Phone Number
                   </label>
                   <input id="modal-4"
@@ -161,27 +161,27 @@ export default function BookingModal({
                     placeholder="(571) 459-8155"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    className="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 placeholder-slate-400 placeholder:text-xs sm:placeholder:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="modal-5" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                  <label htmlFor="modal-5" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 sm:mb-1.5">
                     DMV Zip Code
                   </label>
                   <input id="modal-5"
                     type="text"
                     required
-                    placeholder="e.g. 22102, 20001"
+                    placeholder="e.g. 22102"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    className="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 placeholder-slate-400 placeholder:text-xs sm:placeholder:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="modal-6" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                <label htmlFor="modal-6" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 sm:mb-1.5">
                   Appliance Brand & Issue Description
                 </label>
                 <textarea id="modal-6"
@@ -189,7 +189,7 @@ export default function BookingModal({
                   placeholder="e.g. Samsung refrigerator warm, Whirlpool washer not spinning..."
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none"
+                  className="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 placeholder-slate-400 placeholder:text-xs sm:placeholder:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none"
                 />
               </div>
 
@@ -213,7 +213,7 @@ export default function BookingModal({
               <button
                 type="submit"
                 disabled={pending}
-                className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-black text-xs sm:text-sm rounded-xl shadow-md transition-all cursor-pointer disabled:opacity-60"
+                className="w-full py-3 sm:py-3.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-black text-xs sm:text-sm rounded-xl shadow-md transition-all cursor-pointer disabled:opacity-60"
               >
                 {pending ? "Submitting Request..." : "Confirm Dispatch Request"}
               </button>
