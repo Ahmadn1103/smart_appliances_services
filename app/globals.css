@@ -508,3 +508,15 @@ main [id] {
     animation: none;
   }
 }
+
+/* iOS Safari gives date inputs an intrinsic width that overflows their container; force them to fit. */
+input[type="date"] {
+  min-width: 0;
+  max-width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+}
+input[type="date"]::-webkit-date-and-time-value {
+  text-align: left;
+  min-height: 1.5em;
+}

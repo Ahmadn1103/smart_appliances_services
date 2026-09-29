@@ -134,7 +134,7 @@ export default function BookingSection({
             </div>
             <div className="relative">
               <Calendar className={ICON} aria-hidden="true" />
-              <input type="date" required aria-label="Preferred date" value={preferredDate} onChange={(e) => setPreferredDate(e.target.value)} className={INPUT} />
+              <input type="date" required aria-label="Preferred date" value={preferredDate} onChange={(e) => setPreferredDate(e.target.value)} className={`${INPUT} block w-full min-w-0 max-w-full appearance-none text-left`} />
             </div>
             <div className="relative">
               <Clock className={ICON} aria-hidden="true" />
