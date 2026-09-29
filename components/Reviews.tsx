@@ -2,9 +2,6 @@ import { Star, ThumbsUp } from "lucide-react";
 import { REVIEWS } from "@/lib/reviews";
 
 export default function Reviews() {
-  // The list is rendered twice so the CSS marquee can loop seamlessly (it slides by exactly half its width).
-  const loop = [...REVIEWS, ...REVIEWS];
-
   return (
     <section id="reviews" className="py-8 sm:py-16 lg:py-20 bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -22,31 +19,30 @@ export default function Reviews() {
         </div>
       </div>
 
-      <div className="marquee overflow-hidden py-2">
-        <ul className="marquee-track flex w-max">
-          {loop.map((review, i) => (
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <ul className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
+          {REVIEWS.map((review) => (
             <li
-              key={`${review.id}-${i}`}
-              aria-hidden={i >= REVIEWS.length}
-              className="w-[80vw] sm:w-[22rem] shrink-0 mr-4 md:mr-6 p-5 sm:p-6 rounded-3xl bg-slate-50 border border-slate-200 flex flex-col justify-between"
+              key={review.id}
+              className="min-w-0 p-3 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex flex-wrap items-center justify-between gap-1 mb-2">
                   <div className="flex text-amber-400" role="img" aria-label={`${review.rating} out of 5 stars`}>
                     {Array.from({ length: review.rating }, (_, s) => (
-                      <Star key={s} className="w-4 h-4 fill-amber-400" aria-hidden="true" />
+                      <Star key={s} className="w-3 h-3 fill-amber-400" aria-hidden="true" />
                     ))}
                   </div>
-                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                  <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
                     {review.service}
                   </span>
                 </div>
-                <p className="text-sm text-slate-600 leading-relaxed italic mb-4">&ldquo;{review.comment}&rdquo;</p>
+                <p className="text-[11px] sm:text-xs text-slate-600 leading-snug italic mb-2">&ldquo;{review.comment}&rdquo;</p>
               </div>
 
-              <div className="pt-4 border-t border-slate-200">
-                <p className="text-sm font-bold text-slate-900">{review.name}</p>
-                <span className="text-[11px] text-slate-500">{review.location}</span>
+              <div className="pt-2 border-t border-slate-200">
+                <p className="text-xs font-bold text-slate-900">{review.name}</p>
+                <span className="text-[10px] text-slate-500">{review.location}</span>
               </div>
             </li>
           ))}
