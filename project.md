@@ -116,7 +116,7 @@ smart_appliance_services/
 │   ├── ServicesClient.tsx  # 6-appliance service catalog ("use client")
 │   ├── ContactClient.tsx   # Contact details + dispatch form ("use client")
 │   ├── Navbar.tsx          # Floating white pill: logo, center Home/Services/Contact, phone, Book, QR
-│   ├── CustomSidebar.tsx   # Unused leftover right-drawer (Navbar no longer imports it)
+│   ├── CustomSidebar.tsx   # NOT wired in yet: shared SidebarPanel + `CustomSidebar` (mobile/tablet drawer, xl:hidden) + `DesktopSidebar` (fixed 288px always-visible panel, xl+)
 │   ├── Hero.tsx            # High-conversion hero with diagnostic badge & appliance selector
 │   ├── Brands.tsx          # Factory-trained brand grid (Samsung, LG, Whirlpool, Bosch, etc.)
 │   ├── AboutAdSection.tsx  # Company history (est. 2021, 15+ yrs exp) with technician visual
@@ -242,7 +242,7 @@ When adding a page: export `metadata` with `alternates.canonical` and its own `o
 
 - **Reviews:** `components/Reviews.tsx` uses hardcoded testimonials with relative dates, and the copy claims "Verified 5-star ratings" / "Trusted by Hundreds". Replace with real Google reviews or remove or soften the claims.
 - **Google review URL:** Instagram is unified as `@ssmartappliance`. `SocialBarcodeHub` still uses a placeholder Google link (`https://g.page/r/smartapplianceservices`). Confirm the live GBP URL and put Facebook, Instagram, and Google in `lib/site.ts`.
-- **Unused drawer:** `components/CustomSidebar.tsx` is no longer wired to the Navbar. Delete it once confirmed unused, or keep it only if a full drawer is needed again.
+- **Sidebar (decision pending):** the requested design is an always-visible left sidebar on PC (xl, 1280px+) with the slide-out drawer on mobile/tablet. `components/CustomSidebar.tsx` already provides both (`DesktopSidebar` and `CustomSidebar`), but `Navbar.tsx` currently uses its own dropdown menu and does not import them. To adopt it: render `<DesktopSidebar>` and `<CustomSidebar>` in `Navbar`, add `xl:left-72` to the fixed header, hide the hamburger and center nav links at `xl`, and add `xl:pl-72` to the `<body>` in `app/layout.tsx`. Otherwise delete `CustomSidebar.tsx` and keep the dropdown.
 - **Deploy:** set `NEXT_PUBLIC_SITE_URL`, verify in Google Search Console and Bing Webmaster Tools, then re-run the SEO audit against production.
 - **Content to build:** per-appliance pages (`/services/<appliance>-repair`), service-area pages, an About page with license and insurance details, a Google Business Profile.
 - **Cleanup:** `public/` still holds duplicate logos; `package.json` name is still `eco_appliance_services`; `README.md` is the create-next-app default. `.gitignore` now excludes `.playwright-mcp/` and `localhost-audit/`.
