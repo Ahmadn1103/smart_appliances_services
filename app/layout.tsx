@@ -19,7 +19,7 @@ const caveat = Caveat({
 });
 
 const DESCRIPTION =
-  "Refrigerator, washer, dryer, dishwasher & oven repair across DC, Maryland and Northern Virginia. $89 diagnostic credited toward repair. 30-day warranty.";
+  "Appliance repair, dryer vent cleaning and duct cleaning across DC, Maryland and Northern Virginia. $89 diagnostic credited toward repair. 30-day warranty.";
 
 const HOME_TITLE = "Appliance Repair in DC, MD & Northern VA | Smart Appliance Services";
 

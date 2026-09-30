@@ -13,7 +13,7 @@ export const localBusinessJsonLd = {
   telephone: PRIMARY_PHONE,
   email: EMAIL,
   description:
-    "Appliance repair for refrigerators, freezers, washers, dryers, dishwashers, ovens, ranges and garbage disposals in Washington DC, Maryland and Northern Virginia. $89 diagnostic credited toward repair; 30-day labor and parts warranty.",
+    "Appliance repair and installation for refrigerators, freezers, washers, dryers, dishwashers, ovens, ranges and garbage disposals, plus dryer vent cleaning and house duct cleaning, in Washington DC, Maryland and Northern Virginia. $89 diagnostic credited toward repair; 30-day labor and parts warranty.",
   priceRange: "$$",
   areaServed: [
     { "@type": "AdministrativeArea", name: "Washington, DC" },

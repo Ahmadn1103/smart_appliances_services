@@ -17,7 +17,7 @@ export default function HomeHero() {
             <span className="block bg-gradient-to-r from-sky-300 to-cyan-300 bg-clip-text text-transparent">for Your Home</span>
           </h1>
           <p className="text-xs sm:text-lg text-slate-200 max-w-xl leading-relaxed">
-            Fast, honest and professional service for all major home appliances. We get your appliances running again, so you can get back to what matters most.
+            Fast, honest and professional service for all major home appliances, plus dryer vent and duct cleaning. We get your home running smoothly again, so you can get back to what matters most.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 pt-1">
             <BookButton className="btn-cta inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 text-white px-7 py-3.5 rounded-full font-black text-sm sm:text-base shadow-md shadow-blue-500/30 cursor-pointer">
