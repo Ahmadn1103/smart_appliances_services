@@ -9,7 +9,7 @@ export const localBusinessJsonLd = {
   name: SITE_NAME,
   url: SITE_URL,
   logo: `${SITE_URL}/smart-logo.jpeg`,
-  image: `${SITE_URL}/hero-technician.jpg`,
+  image: `${SITE_URL}/mj-technician.jpg`,
   founder: { "@type": "Person", name: OWNER_NAME, alternateName: "MJ" },
   telephone: PRIMARY_PHONE,
   email: EMAIL,

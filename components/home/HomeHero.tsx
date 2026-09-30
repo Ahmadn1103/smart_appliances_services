@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { ArrowRight, Phone } from "lucide-react";
 import BookButton from "@/components/BookButton";
 import ZipChecker from "@/components/ZipChecker";
@@ -7,8 +6,8 @@ import { SERVICE_RADIUS_MILES } from "@/lib/site";
 export default function HomeHero() {
   return (
     <section id="home" className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 text-white">
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-10 sm:pt-36 sm:pb-16 lg:pt-40 lg:pb-24 grid lg:grid-cols-12 gap-8 items-center">
-        <div className="lg:col-span-6 space-y-5">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-10 sm:pt-36 sm:pb-16 lg:pt-40 lg:pb-20 grid lg:grid-cols-12 gap-8 items-center">
+        <div className="lg:col-span-7 space-y-5">
           <p className="text-xs sm:text-sm font-bold tracking-[0.18em] text-blue-200 uppercase">
             Professional &bull; Reliable &bull; Affordable
           </p>
@@ -34,18 +33,8 @@ export default function HomeHero() {
           </div>
         </div>
 
-        <div className="lg:col-span-6 relative">
-          <div className="relative aspect-[6/5] rounded-3xl overflow-hidden border border-white/15 shadow-2xl">
-            <Image
-              src="/hero-technician.jpg"
-              alt="Smart Appliance Services lead technician running a diagnostic check on a washer in a home"
-              fill
-              priority
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
-            />
-          </div>
-          <div className="mt-4 lg:mt-0 lg:absolute lg:-bottom-12 lg:left-6 lg:right-6 rounded-3xl bg-white/95 text-slate-900 p-5 sm:p-6 shadow-2xl border border-white/40 backdrop-blur">
+        <div className="lg:col-span-5 lg:col-start-8">
+          <div className="rounded-3xl bg-white/95 text-slate-900 p-5 sm:p-6 shadow-2xl border border-white/40 backdrop-blur">
             <h2 className="text-base sm:text-lg font-black">Do we service your area?</h2>
             <p className="text-xs sm:text-sm text-slate-600 mt-1 mb-3.5">
               We serve homes within {SERVICE_RADIUS_MILES} miles of Washington, DC. Enter your ZIP to check.
