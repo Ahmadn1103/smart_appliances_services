@@ -14,10 +14,10 @@ export default function WhyChoose() {
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14 grid lg:grid-cols-12 gap-8 items-start">
       <div className="lg:col-span-7">
-        <h2 className="text-2xl sm:text-3xl font-black text-blue-800 mb-5">Why Choose Smart Appliance Services?</h2>
+        <h2 className="text-xl sm:text-3xl font-black text-blue-800 mb-4 sm:mb-5">Why Choose Smart Appliance Services?</h2>
         <ul className="space-y-3">
           {REASONS.map((reason) => (
-            <li key={reason} className="flex items-start gap-3 text-sm sm:text-base text-slate-800">
+            <li key={reason} className="flex items-start gap-3 text-xs sm:text-base text-slate-800">
               <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" aria-hidden="true" />
               <span>{reason}</span>
             </li>

@@ -107,7 +107,7 @@ export default function BookingModal({
               <HoneypotField value={website} onChange={setWebsite} />
               <div>
                 <label htmlFor="modal-1" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 sm:mb-1.5">
-                  Appliance Service Needed
+                  Service Needed
                 </label>
                 <select id="modal-1"
                   value={service}

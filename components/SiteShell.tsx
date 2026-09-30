@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BookingModal from "@/components/BookingModal";
 import SocialModal from "@/components/SocialModal";
-import { APPLIANCES } from "@/lib/appliances";
+import { SERVICE_GROUPS } from "@/lib/appliances";
 
 interface SiteContextValue {
   openBooking: (serviceName?: string, notes?: string) => void;
@@ -24,7 +24,7 @@ export function useSite(): SiteContextValue {
 export default function SiteShell({ children }: { children: React.ReactNode }) {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [socialOpen, setSocialOpen] = useState(false);
-  const [service, setService] = useState<string>(APPLIANCES[0].bookingLabel);
+  const [service, setService] = useState<string>(SERVICE_GROUPS[0].bookingLabel);
   const [notes, setNotes] = useState("");
 
   const openBooking = useCallback((serviceName?: string, preload?: string) => {

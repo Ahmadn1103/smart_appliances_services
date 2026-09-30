@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { APPLIANCES } from "@/lib/appliances";
+import { SERVICE_GROUPS } from "@/lib/appliances";
 import QRCode from "qrcode";
 import { Phone, Mail, MapPin, ShieldCheck, Clock, Tag, QrCode, ArrowRight, ExternalLink } from "lucide-react";
 
@@ -156,10 +156,10 @@ export default function Footer({ onOpenSocial }: FooterProps) {
               <span>Services</span>
             </h4>
             <ul className="space-y-0.5 sm:space-y-2 text-xs sm:text-sm text-slate-600 [&_a]:inline-block [&_a]:py-1.5 sm:[&_a]:py-0">
-              {APPLIANCES.map((appliance) => (
-                <li key={appliance.slug}>
+              {SERVICE_GROUPS.map((group) => (
+                <li key={group.key}>
                   <Link href="#services" className="hover:text-blue-600 transition-colors">
-                    {appliance.name}
+                    {group.title}
                   </Link>
                 </li>
               ))}

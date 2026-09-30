@@ -26,7 +26,7 @@ export default function Brands() {
               <Award className="w-3.5 h-3.5 text-blue-600" />
               <span>Comprehensive Brand Expertise</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mt-2 tracking-tight">
+            <h3 className="text-lg sm:text-3xl font-black text-slate-900 mt-2 tracking-tight">
               Factory-Trained On All Major Brands & Systems
             </h3>
           </div>

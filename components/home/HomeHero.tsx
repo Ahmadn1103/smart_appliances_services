@@ -22,11 +22,11 @@ export default function HomeHero() {
           <p className="text-xs sm:text-sm font-bold tracking-[0.18em] text-blue-200 uppercase">
             Professional &bull; Reliable &bull; Affordable
           </p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.08]">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.08]">
             Expert Appliance Repair
             <span className="block bg-gradient-to-r from-sky-300 to-cyan-300 bg-clip-text text-transparent">for Your Home</span>
           </h1>
-          <p className="text-sm sm:text-lg text-slate-200 max-w-xl leading-relaxed">
+          <p className="text-xs sm:text-lg text-slate-200 max-w-xl leading-relaxed">
             Fast, honest and professional service for all major home appliances. We get your appliances running again, so you can get back to what matters most.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 pt-1">

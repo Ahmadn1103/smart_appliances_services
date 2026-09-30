@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     absolute: "Appliance Repair in DC, MD & Northern VA | Smart Appliance Services",
   },
   description:
-    "Refrigerator, washer, dryer, dishwasher, oven, microwave & disposal repair within 40 miles of Washington, DC. $89 diagnostic credited toward repair. 30-day warranty.",
+    "Appliance repair & installation, dryer vent cleaning and house duct cleaning within 40 miles of Washington, DC. $89 diagnostic credited toward repair. 30-day warranty.",
   alternates: { canonical: "/" },
 };
 
