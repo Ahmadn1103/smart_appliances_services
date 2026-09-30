@@ -27,7 +27,7 @@ export default function ServicesSection() {
                   </li>
                 ))}
               </ul>
-              <div className="mt-5 grid grid-cols-2 gap-2">
+              <div className="mt-5 grid grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 gap-2">
                 <BookButton
                   service={group.bookingLabel}
                   className="btn-cta whitespace-nowrap rounded-full bg-blue-600 text-white px-3 py-2.5 text-xs sm:text-sm font-bold cursor-pointer"
