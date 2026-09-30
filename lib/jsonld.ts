@@ -9,7 +9,7 @@ export const localBusinessJsonLd = {
   name: SITE_NAME,
   url: SITE_URL,
   logo: `${SITE_URL}/smart-logo.jpeg`,
-  image: `${SITE_URL}/smart-technician.png`,
+  image: `${SITE_URL}/hero-technician.jpg`,
   telephone: PRIMARY_PHONE,
   email: EMAIL,
   description:
