@@ -1,5 +1,5 @@
 import { faqs } from "@/lib/faqs";
-import { EMAIL, PRIMARY_PHONE, SITE_NAME, SITE_URL, SOCIAL_LINKS } from "@/lib/site";
+import { EMAIL, OWNER_NAME, PRIMARY_PHONE, SITE_NAME, SITE_URL, SOCIAL_LINKS } from "@/lib/site";
 
 // No aggregateRating/review markup on purpose: the on-page testimonials are not verifiable.
 export const localBusinessJsonLd = {
@@ -10,6 +10,7 @@ export const localBusinessJsonLd = {
   url: SITE_URL,
   logo: `${SITE_URL}/smart-logo.jpeg`,
   image: `${SITE_URL}/hero-technician.jpg`,
+  founder: { "@type": "Person", name: OWNER_NAME, alternateName: "MJ" },
   telephone: PRIMARY_PHONE,
   email: EMAIL,
   description:

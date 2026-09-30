@@ -2,6 +2,8 @@
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
 
 export const SITE_NAME = "Smart Appliance Services";
+export const OWNER_NAME = "Mujtaba Aria";
+export const OWNER_NICKNAME = "MJ";
 export const PRIMARY_PHONE = "+1-571-459-8155";
 export const EMAIL = "Smart.applianceservices.va@gmail.com";
 

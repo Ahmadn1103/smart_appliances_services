@@ -14,6 +14,7 @@ import {
   ArrowRight,
   Zap,
 } from "lucide-react";
+import { OWNER_NAME, OWNER_NICKNAME } from "@/lib/site";
 
 interface AboutAdSectionProps {
   onOpenBooking: (serviceName?: string) => void;
@@ -98,7 +99,7 @@ export default function AboutAdSection({ onOpenBooking }: AboutAdSectionProps) {
           <div className="lg:col-span-7 space-y-6">
             <div className="space-y-4 text-slate-600 leading-relaxed text-sm sm:text-base">
               <p>
-                Founded in 2021 by master appliance specialist Armani, <strong className="text-slate-900">Smart Appliance Services LLC</strong> was built on a simple promise: providing fast, honest diagnostics and expert repairs without high-pressure sales or inflated part markups.
+                Founded in 2021 by master appliance specialist {OWNER_NAME} &ldquo;{OWNER_NICKNAME}&rdquo;, <strong className="text-slate-900">Smart Appliance Services LLC</strong> was built on a simple promise: providing fast, honest diagnostics and expert repairs without high-pressure sales or inflated part markups.
               </p>
               <p>
                 With over <strong className="text-slate-900">15+ years of hands-on field experience</strong>, our technicians carry OEM diagnostic software and stocked service vehicles to resolve issues on the very first visit throughout DC, Maryland, and Northern Virginia.
@@ -153,8 +154,8 @@ export default function AboutAdSection({ onOpenBooking }: AboutAdSectionProps) {
                       <ShieldCheck className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="text-xs font-black text-slate-900">Armani & Master Team</div>
-                      <div className="text-[10px] text-slate-500">15+ Years Hands-On Experience</div>
+                      <div className="text-xs font-black text-slate-900">{OWNER_NAME} &ldquo;{OWNER_NICKNAME}&rdquo;</div>
+                      <div className="text-[10px] text-slate-500">Owner &bull; 15+ Years Hands-On Experience</div>
                     </div>
                   </div>
                   <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
