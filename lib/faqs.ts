@@ -21,7 +21,7 @@ export const faqs = [
   },
   {
     q: "What are your operating hours?",
-    a: "Our dispatch center and mobile service vans operate Monday through Friday from 8:00 AM to 5:00 PM, and Saturday from 9:00 AM to 4:00 PM. We are closed on Sunday so our technicians can spend time with their families.",
+    a: "Our dispatch center and mobile service vans operate Monday through Friday from 8:00 AM to 5:00 PM, and Saturday from 9:00 AM to 4:00 PM. We are closed on Sunday.",
   },
   {
     q: "How can I follow your work or connect on social media?",
