@@ -10,7 +10,16 @@ const AREAS = [
   },
   {
     region: "Northern Virginia",
-    places: ["Fairfax", "Arlington", "Alexandria", "Loudoun", "Prince William", "McLean", "Reston", "Vienna"],
+    places: [
+      "Fairfax County", "Arlington County", "Loudoun County", "Prince William County", "Aldie", "Alexandria",
+      "Annandale", "Arlington", "Ashburn", "Bristow", "Broad Run", "Burke",
+      "Catharpin", "Catlett", "Centreville", "Chantilly", "Clifton", "Dahlgren",
+      "Delaplane", "Dumfries", "Dunn Loring", "Fairfax", "Fairfax Station", "Falls Church",
+      "Gainesville", "Great Falls", "Hamilton", "Haymarket", "Herndon", "Leesburg",
+      "Lorton", "Manassas", "McLean", "Middleburg", "Nokesville", "Oakton",
+      "Occoquan", "Paeonian Springs", "Reston", "Springfield", "Stafford", "Sterling",
+      "The Plains", "Triangle", "Vienna", "Warrenton", "Waterford", "Woodbridge",
+    ],
   },
 ];
 
