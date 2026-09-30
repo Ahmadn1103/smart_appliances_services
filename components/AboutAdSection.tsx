@@ -140,11 +140,11 @@ export default function AboutAdSection({ onOpenBooking }: AboutAdSectionProps) {
             <div className="relative w-full max-w-md rounded-3xl overflow-hidden border border-slate-200 shadow-xl bg-white p-3">
               <div className="relative h-64 sm:h-96 w-full rounded-2xl overflow-hidden bg-slate-100">
                 <Image
-                  src="/smart-technician.png"
-                  alt="Smart Appliance Services Master Technician"
+                  src="/mj-technician.jpg"
+                  alt={`${OWNER_NAME} “${OWNER_NICKNAME}”, lead technician at Smart Appliance Services, running a diagnostic check`}
                   fill
                   sizes="(max-width: 768px) 100vw, 420px"
-                  className="object-cover object-top hover:scale-105 transition-transform duration-500"
+                  className="object-cover object-center hover:scale-105 transition-transform duration-500"
                 />
                 
                 {/* Floating Badge */}
