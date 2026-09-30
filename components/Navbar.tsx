@@ -72,12 +72,12 @@ export default function Navbar({ onOpenBooking, onOpenSocial }: NavbarProps) {
         >
           <div className="px-3.5 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between gap-2 sm:gap-4">
             <a href="#home" className="flex items-center gap-2 sm:gap-2.5 group shrink-0">
-              <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-xl overflow-hidden bg-white p-0.5 border border-slate-200 shadow-xs group-hover:border-blue-500 group-hover:scale-105 group-active:scale-95 transition-all duration-200 shrink-0">
+              <div className="relative w-10 h-10 sm:w-14 sm:h-14 rounded-xl overflow-hidden bg-white p-0.5 border border-slate-200 shadow-xs group-hover:border-blue-500 group-hover:scale-105 group-active:scale-95 transition-all duration-200 shrink-0">
                 <Image
                   src="/smart-logo.jpeg"
                   alt="Smart Appliance Services Logo"
                   fill
-                  sizes="40px"
+                  sizes="56px"
                   className="object-contain"
                   priority
                 />
