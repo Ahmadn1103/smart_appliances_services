@@ -249,5 +249,6 @@ The site is a single page, so there is one canonical URL (`/`) and one sitemap e
 - New transparent logo (gray line removed, no box), bigger header logo, smaller header, nav links on one line, header overflow fixed.
 - Hero: new technician photo (`public/hero-technician-2.jpg`), smaller headline, smaller/clearer buttons, brush-stroke "All Brands / All Appliances / One Team" image (`public/hero-tagline.png`, cut out of `assest/word.jpg`), ZIP card removed from the hero, mobile-optimized layout and type sizes.
 - Brands strip: removed Thermador and Sub-Zero & Wolf, added current full-color logos, no descriptions, smaller section, 5 per row.
-- About: "Armani & Master Team" badge now "Certified Technician", "family-owned" copy, new technician photo (`public/mj-technician.jpeg`), button text "Online Repair Schedule" with fixed spacing, $89 stat now blue.
+- About: "Armani & Master Team" badge now "Certified Technician", "family-owned" copy, new technician photo (`public/mj-technician.jpeg`), button text "Online Repair Schedule", now placed below the four stat boxes (full width on phones, centered on larger screens), $89 stat now blue.
 - FAQ hours answer now ends "We are closed Sundays."
+- Service Area ("Why Choose") card now reads "Serving Virginia, DC & Maryland / Within 40 Miles"; booking confirmation and ZIP checker show both new numbers.

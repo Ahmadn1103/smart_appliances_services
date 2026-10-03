@@ -263,8 +263,10 @@ body {
   will-change: transform;
 }
 
-.pressable:hover {
-  transform: translateY(-1px);
+@media (hover: hover) {
+  .pressable:hover {
+    transform: translateY(-1px);
+  }
 }
 
 .pressable:active {
@@ -309,15 +311,17 @@ body {
   pointer-events: none;
 }
 
-.btn-cta:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    0 14px 28px -10px rgba(37, 99, 235, 0.45),
-    0 0 0 1px rgba(255, 255, 255, 0.2) inset;
-}
+@media (hover: hover) {
+  .btn-cta:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 14px 28px -10px rgba(37, 99, 235, 0.45),
+      0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+  }
 
-.btn-cta:hover::after {
-  transform: translateX(130%);
+  .btn-cta:hover::after {
+    transform: translateX(130%);
+  }
 }
 
 .btn-cta:active {
@@ -334,8 +338,12 @@ body {
     box-shadow 180ms ease;
 }
 
-.icon-btn:hover {
-  transform: translateY(-1px) rotate(-8deg);
+/* Hover tilt only on devices with a real hover; on touch the :hover state
+   sticks after a tap and leaves the button crooked. */
+@media (hover: hover) {
+  .icon-btn:hover {
+    transform: translateY(-1px) rotate(-8deg);
+  }
 }
 
 .icon-btn:active {

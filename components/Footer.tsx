@@ -77,7 +77,7 @@ export default function Footer({ onOpenSocial }: FooterProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-6">
           
           {/* Brand Info & Identity (4 columns on desktop) */}
-          <div className="lg:col-span-4 space-y-4">
+          <div className="lg:col-span-3 space-y-4">
             <Link href="/" className="inline-flex items-center gap-3 group">
               <div className="relative w-11 h-11 rounded-2xl overflow-hidden bg-white p-1 border border-slate-200 shadow-sm group-hover:border-blue-500 transition-all shrink-0">
                 <Image
@@ -154,13 +154,13 @@ export default function Footer({ onOpenSocial }: FooterProps) {
             </div>
           </div>
 
-          {/* Core Appliance Services (2.5 columns on desktop) */}
-          <div className="lg:col-span-2 space-y-3">
+          {/* Core Appliance Services (3 columns on desktop, list split in 2 columns) */}
+          <div className="lg:col-span-3 space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-widest text-slate-900 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
               <span>Services</span>
             </h4>
-            <ul className="space-y-0.5 sm:space-y-1 text-sm font-semibold text-slate-700 [&_a]:py-1.5 sm:[&_a]:py-1">
+            <ul className="grid grid-cols-2 gap-x-3 gap-y-0.5 sm:gap-y-1 text-sm font-semibold text-slate-700 [&_a]:py-1.5 sm:[&_a]:py-1">
               {APPLIANCES.map((appliance) => (
                 <li key={appliance.slug}>
                   <Link
