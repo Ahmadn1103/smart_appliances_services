@@ -27,8 +27,18 @@ function InstagramIcon({ className = "w-4 h-4" }: { className?: string }) {
   );
 }
 
+/** Scroll up to the Services section even when the URL already ends in #services; on other pages the link navigates home. */
+function goToServices(e: React.MouseEvent<HTMLAnchorElement>, slug?: string) {
+  const section = document.getElementById("services");
+  if (!section) return;
+  e.preventDefault();
+  if (slug) window.dispatchEvent(new CustomEvent("select-appliance", { detail: slug }));
+  section.scrollIntoView({ behavior: "smooth", block: "start" });
+  history.replaceState(null, "", "#services");
+}
+
 export default function Footer({ onOpenSocial }: FooterProps) {
-  const [activeQrType, setActiveQrType] = useState<"facebook" | "instagram" | "phone">("facebook");
+  const [activeQrType, setActiveQrType] = useState<"facebook" | "instagram">("facebook");
   const [qrDataUrl, setQrDataUrl] = useState<string>("");
 
   const qrOptions = {
@@ -41,11 +51,6 @@ export default function Footer({ onOpenSocial }: FooterProps) {
       url: "https://instagram.com/ssmartappliance",
       label: "Instagram",
       note: "@ssmartappliance Repair Reels",
-    },
-    phone: {
-      url: "tel:5714598155",
-      label: "Call Desk",
-      note: "Dial (571) 459-8155 Directly",
     },
   };
 
@@ -76,7 +81,7 @@ export default function Footer({ onOpenSocial }: FooterProps) {
             <Link href="/" className="inline-flex items-center gap-3 group">
               <div className="relative w-11 h-11 rounded-2xl overflow-hidden bg-white p-1 border border-slate-200 shadow-sm group-hover:border-blue-500 transition-all shrink-0">
                 <Image
-                  src="/smart-logo.jpeg"
+                  src="/smart-logo.png"
                   alt="Smart Appliance Services Logo"
                   fill
                   sizes="44px"
@@ -155,28 +160,29 @@ export default function Footer({ onOpenSocial }: FooterProps) {
               <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
               <span>Services</span>
             </h4>
-            <ul className="space-y-0.5 sm:space-y-2 text-xs sm:text-sm text-slate-600 [&_a]:inline-block [&_a]:py-1.5 sm:[&_a]:py-0">
+            <ul className="space-y-0.5 sm:space-y-1 text-sm font-semibold text-slate-700 [&_a]:py-1.5 sm:[&_a]:py-1">
               {APPLIANCES.map((appliance) => (
                 <li key={appliance.slug}>
-                  <Link href="#services" className="hover:text-blue-600 transition-colors">
+                  <Link
+                    href={`/?service=${appliance.slug}#services`}
+                    onClick={(e) => goToServices(e, appliance.slug)}
+                    className="group inline-flex items-center gap-2 hover:text-blue-600 transition-all duration-200 hover:translate-x-0.5"
+                  >
+                    <span className="w-1 h-1 rounded-full bg-slate-300 group-hover:bg-blue-600 group-hover:scale-150 transition-all" aria-hidden="true" />
                     {appliance.name}
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link href="#service-area" className="hover:text-blue-600 transition-colors">
-                  Service Area (40 miles)
-                </Link>
-              </li>
             </ul>
 
-            <div className="pt-1">
+            <div className="pt-3 mt-1 border-t border-slate-200">
               <Link
-                href="#services"
-                className="inline-flex items-center gap-1 text-xs text-blue-600 hover:text-blue-700 font-bold"
+                href="/#services"
+                onClick={(e) => goToServices(e)}
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xs transition-colors"
               >
                 <span>All Services</span>
-                <ArrowRight className="w-3 h-3" />
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
           </div>
@@ -194,11 +200,11 @@ export default function Footer({ onOpenSocial }: FooterProps) {
                   Primary Hotline
                 </span>
                 <a
-                  href="tel:5714598155"
+                  href="tel:5718992995"
                   className="flex items-center gap-1.5 text-slate-900 font-black text-base hover:text-blue-600 transition-colors"
                 >
                   <Phone className="w-4 h-4 text-blue-600 shrink-0" />
-                  <span>(571) 459-8155</span>
+                  <span>(571) 899-2995</span>
                 </a>
               </div>
 
@@ -207,11 +213,11 @@ export default function Footer({ onOpenSocial }: FooterProps) {
                   Secondary Line
                 </span>
                 <a
-                  href="tel:5718992995"
+                  href="tel:5719924222"
                   className="flex items-center gap-1.5 text-slate-700 font-bold text-xs hover:text-blue-600 transition-colors"
                 >
                   <Phone className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-                  <span>(571) 899-2995</span>
+                  <span>(571) 992-4222</span>
                 </a>
               </div>
 
@@ -263,17 +269,6 @@ export default function Footer({ onOpenSocial }: FooterProps) {
                   }`}
                 >
                   Instagram
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveQrType("phone")}
-                  className={`flex-1 py-1 text-[10px] font-bold rounded-full transition-all cursor-pointer ${
-                    activeQrType === "phone"
-                      ? "bg-emerald-600 text-white shadow-xs"
-                      : "text-slate-600 hover:text-slate-900"
-                  }`}
-                >
-                  Call
                 </button>
               </div>
 

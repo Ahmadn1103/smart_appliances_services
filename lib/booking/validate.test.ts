@@ -5,7 +5,7 @@ const NOW = new Date("2026-09-28T12:00:00Z");
 
 const base = {
   attemptId: "attempt-12345678",
-  service: "Refrigerators & Freezers",
+  service: "Refrigerators",
   name: "Jane Doe",
   phone: "(571) 459-8155",
   email: "jane@example.com",
@@ -30,7 +30,7 @@ describe("validateBooking", () => {
     const result = valid(base);
     expect(result.attemptId).toBe("attempt-12345678");
     expect(result.value).toEqual({
-      service: "Refrigerators & Freezers",
+      service: "Refrigerators",
       name: "Jane Doe",
       phone: "(571) 459-8155",
       email: "jane@example.com",

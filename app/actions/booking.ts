@@ -8,7 +8,7 @@ import { validateBooking } from "../../lib/booking/validate";
 
 export type BookingResult = { ok: true; reference: string } | { ok: false; error: string };
 
-const GENERIC_ERROR = "We couldn't submit your request. Please call (571) 459-8155.";
+const GENERIC_ERROR = "We couldn't submit your request. Please call (571) 899-2995 or (571) 992-4222.";
 const BUSY_ERROR = "Your request is still being processed. Please wait a moment and try again.";
 
 function sentCount(data: unknown): number {

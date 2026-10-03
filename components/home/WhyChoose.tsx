@@ -30,9 +30,9 @@ export default function WhyChoose() {
           <MapPin className="w-9 h-9 text-blue-700 shrink-0" aria-hidden="true" />
           <div>
             <p className="text-sm font-bold text-blue-800">Service Area</p>
-            <p className="text-2xl font-black text-slate-900">DMV Area</p>
+            <p className="text-2xl font-black text-slate-900 leading-tight">Serving Virginia, DC &amp; Maryland</p>
             <p className="text-sm text-slate-600 mt-0.5">
-              Within {SERVICE_RADIUS_MILES} miles of Washington, DC (DC, Maryland, Virginia)
+              Within {SERVICE_RADIUS_MILES} Miles
             </p>
             <a href="#service-area" className="inline-block mt-2 text-sm font-bold text-blue-700 hover:text-blue-900 underline underline-offset-2">
               Check your ZIP code

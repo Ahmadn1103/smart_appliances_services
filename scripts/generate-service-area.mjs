@@ -1,16 +1,54 @@
-// Builds lib/service-area-zips.ts: every ZIP whose center is within RADIUS_MILES of CENTER.
-// Source: US Census ZCTA Gazetteer (public domain), e.g.
-//   https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2023_Gazetteer/2023_Gaz_zcta_national.zip
-// Usage: node scripts/generate-service-area.mjs path/to/2023_Gaz_zcta_national.txt
-// CENTER and RADIUS_MILES must match lib/service-area.ts (a unit test checks this).
+// Builds lib/service-area-zips.ts and lib/service-area-cities.ts: every ZIP whose center is within RADIUS_MILES of any CENTERS entry,
+// minus the cities listed in EXCLUDED_CITIES (outer fringe places the owner chose not to serve),
+// and with Maryland limited to MARYLAND_CITIES.
+// Source: GeoNames US postal codes (CC BY 4.0), https://download.geonames.org/export/zip/US.zip (file US.txt)
+// Usage: node scripts/generate-service-area.mjs path/to/US.txt
+// CENTERS and RADIUS_MILES must match lib/site.ts (a unit test checks this).
 import { readFileSync, writeFileSync } from "node:fs";
 
-const CENTER = { lat: 38.9072, lng: -77.0369 }; // Washington, DC
+const CENTERS = [
+  { name: "Fredericksburg, VA", lat: 38.3032, lng: -77.4605 },
+  { name: "Stafford, VA", lat: 38.4221, lng: -77.4083 },
+  { name: "Manassas, VA", lat: 38.7509, lng: -77.4753 },
+  { name: "Warrenton, VA", lat: 38.7135, lng: -77.7953 },
+];
 const RADIUS_MILES = 40;
+
+// Places dropped from the area, matched on "City, ST".
+const EXCLUDED_CITIES = new Set(
+  [
+    "Ashland", "Aylett", "Amissville", "Aroda", "Banco", "Beaverdam", "Bentonville", "Bluemont", "Boston",
+    "Bowling Green", "Boyce", "Brandy Station", "Brightwood", "Broad Run", "Casanova", "Catharpin", "Champlain",
+    "Chester Gap", "Colonial Beach", "Corbin", "Culpeper", "Dahlgren", "Delaplane", "Dhs", "Dogue", "Doswell",
+    "Elkwood", "Etlan", "Fishers Hill", "Flint Hill", "Fort Myer", "Fort Valley", "Garrisonville", "Goldvein",
+    "Greenway", "Hamilton", "Hanover", "Hartwood", "Haywood", "Hume", "Huntly", "Hustle", "Jeffersonton", "Jersey",
+    "King George", "Ladysmith", "Leon", "Lignum", "Lincoln", "Linden", "Locust Dale", "Locust Grove", "Loretto",
+    "Louisa", "Lovettsville", "Madison", "Markham", "Marshall", "Maurertown", "Middleburg", "Middletown", "Midland",
+    "Milford", "Mineral", "Mitchells", "Montpelier Station", "Montross", "Newington", "Ninde", "Nokesville",
+    "Oakpark", "Orange", "Orlean", "Paeonian Springs", "Paris", "Partlow", "Philomont", "Port Royal", "Pratts",
+    "Purcellville", "Quantico", "Radiant", "Rapidan", "Rappahannock Academy", "Rectortown", "Remington", "Reva",
+    "Rhoadesville", "Richardsville", "Rileyville", "Rixeyville", "Rochelle", "Rollins Fork", "Round Hill", "Ruby",
+    "Ruther Glen", "Saint Stephens Church", "Sealston", "Somerville", "Sparta", "Sperryville", "Stanley",
+    "Stephens City", "Stephenson", "Stevensburg", "Stratford", "Sumerduck", "Syria", "The Plains", "Thornburg",
+    "Toms Brook", "Trevilians", "Unionville", "Upperville", "White Post", "Wolftown", "Woodberry Forest",
+    "Woodford", "Zacata",
+    "Bealeton", "Berryville", "Brooke", "Bumpass", "Calverton", "Castleton", "Catlett", "Luray", "Millwood",
+    "Montpelier", "Newtown", "Viewtown", "Woodville", "Caret", "Burr Hill",
+  ].map((c) => `${c}, VA`),
+);
+// West Virginia places dropped from the area.
+for (const c of ["Charles Town", "Summit Point"]) EXCLUDED_CITIES.add(`${c}, WV`);
+
+// Maryland is limited to these cities; every other Maryland place is dropped.
+// (Wheaton has no ZIP of its own; its ZIPs are listed under Silver Spring.)
+const MARYLAND_CITIES = new Set([
+  "Silver Spring", "Bethesda", "Chevy Chase", "Takoma Park", "Hyattsville", "College Park", "Suitland", "Oxon Hill",
+  "Greenbelt", "Bowie", "Rockville", "Gaithersburg", "Laurel", "Upper Marlboro", "Clinton",
+]);
 
 const input = process.argv[2];
 if (!input) {
-  console.error("Usage: node scripts/generate-service-area.mjs <gazetteer.txt>");
+  console.error("Usage: node scripts/generate-service-area.mjs <US.txt>");
   process.exit(1);
 }
 
@@ -24,19 +62,28 @@ function haversineMiles(a, b) {
 }
 
 const zips = [];
-for (const line of readFileSync(input, "utf8").split(/\r?\n/).slice(1)) {
-  const cols = line.split("\t").map((c) => c.trim());
-  const zip = cols[0];
-  const lat = Number(cols[5]);
-  const lng = Number(cols[6]);
+const byState = {}; // state -> city -> zips
+for (const line of readFileSync(input, "utf8").split(/\r?\n/)) {
+  const cols = line.split("\t");
+  const [zip, city, state] = [cols[1], cols[2], cols[4]];
+  const lat = Number(cols[9]);
+  const lng = Number(cols[10]);
   if (!/^\d{5}$/.test(zip) || Number.isNaN(lat) || Number.isNaN(lng)) continue;
-  if (haversineMiles(CENTER, { lat, lng }) <= RADIUS_MILES) zips.push(zip);
+  if (EXCLUDED_CITIES.has(`${city}, ${state}`)) continue;
+  if (state === "MD" && !MARYLAND_CITIES.has(city)) continue;
+  if (!CENTERS.some((c) => haversineMiles(c, { lat, lng }) <= RADIUS_MILES)) continue;
+  zips.push(zip);
+  const name = city.replace(/^Mc /, "Mc").replace(/Mclean/, "McLean");
+  ((byState[state] ??= {})[name] ??= []).push(zip);
 }
 zips.sort();
 
 const out = `// GENERATED by scripts/generate-service-area.mjs. Do not edit by hand.
-// ZIPs whose center is within ${RADIUS_MILES} miles of ${CENTER.lat}, ${CENTER.lng} (Washington, DC).
-export const GENERATED_FOR = { lat: ${CENTER.lat}, lng: ${CENTER.lng}, radiusMiles: ${RADIUS_MILES} } as const;
+// ZIPs whose center is within ${RADIUS_MILES} miles of ${CENTERS.map((c) => c.name).join(", ")}, minus excluded fringe cities.
+export const GENERATED_FOR = {
+  centers: ${JSON.stringify(CENTERS.map(({ lat, lng }) => ({ lat, lng })))},
+  radiusMiles: ${RADIUS_MILES},
+} as const;
 
 export const SERVICE_AREA_ZIPS: ReadonlySet<string> = new Set(
   "${zips.join(" ")}".split(" "),
@@ -44,3 +91,30 @@ export const SERVICE_AREA_ZIPS: ReadonlySet<string> = new Set(
 `;
 writeFileSync(new URL("../lib/service-area-zips.ts", import.meta.url), out);
 console.log(`${zips.length} ZIPs within ${RADIUS_MILES} miles`);
+
+const STATE_NAMES = { VA: "Virginia", DC: "Washington, DC", MD: "Maryland" };
+const states = Object.keys(byState)
+  .sort((a, b) => Object.keys(byState[b]).length - Object.keys(byState[a]).length)
+  .map((code) => ({
+    code,
+    name: STATE_NAMES[code] ?? code,
+    cities: Object.keys(byState[code])
+      .sort()
+      .map((name) => ({ name, zips: byState[code][name].sort() })),
+  }));
+const citiesOut = `// GENERATED by scripts/generate-service-area.mjs. Do not edit by hand.
+// Every city in the service area, grouped by state, matching lib/service-area-zips.ts.
+export interface ServiceAreaCity {
+  name: string;
+  zips: string[];
+}
+export interface ServiceAreaState {
+  code: string;
+  name: string;
+  cities: ServiceAreaCity[];
+}
+
+export const SERVICE_AREA_STATES: readonly ServiceAreaState[] = ${JSON.stringify(states, null, 2)};
+`;
+writeFileSync(new URL("../lib/service-area-cities.ts", import.meta.url), citiesOut);
+console.log(states.map((s) => `${s.code}: ${s.cities.length} cities`).join(", "));

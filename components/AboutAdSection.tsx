@@ -83,10 +83,10 @@ export default function AboutAdSection({ onOpenBooking }: AboutAdSectionProps) {
 
           <button
             onClick={() => onOpenBooking()}
-            className="inline-flex items-center gap-2.5 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-extrabold px-6 py-3.5 rounded-full shadow-md shadow-blue-500/25 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer shrink-0"
+            className="w-full sm:w-auto mt-1 sm:mt-0 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-extrabold text-sm sm:text-base px-5 sm:px-6 py-3 sm:py-3.5 rounded-full shadow-md shadow-blue-500/25 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer shrink-0"
           >
             <Calendar className="w-4 h-4 text-white" />
-            <span>Schedule Online Inspection</span>
+            <span>Online Repair Schedule</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>
@@ -98,7 +98,7 @@ export default function AboutAdSection({ onOpenBooking }: AboutAdSectionProps) {
           <div className="lg:col-span-7 space-y-6">
             <div className="space-y-4 text-slate-600 leading-relaxed text-sm sm:text-base">
               <p>
-                Founded in 2021 by master appliance specialist Armani, <strong className="text-slate-900">Smart Appliance Services LLC</strong> was built on a simple promise: providing fast, honest diagnostics and expert repairs without high-pressure sales or inflated part markups.
+                Founded in 2021, <strong className="text-slate-900">Smart Appliance Services LLC</strong> is a family-owned business built on a simple promise: providing fast, honest diagnostics and expert repairs without high-pressure sales or inflated part markups.
               </p>
               <p>
                 With over <strong className="text-slate-900">15+ years of hands-on field experience</strong>, our technicians carry OEM diagnostic software and stocked service vehicles to resolve issues on the very first visit throughout DC, Maryland, and Northern Virginia.
@@ -139,8 +139,8 @@ export default function AboutAdSection({ onOpenBooking }: AboutAdSectionProps) {
             <div className="relative w-full max-w-md rounded-3xl overflow-hidden border border-slate-200 shadow-xl bg-white p-3">
               <div className="relative h-64 sm:h-96 w-full rounded-2xl overflow-hidden bg-slate-100">
                 <Image
-                  src="/smart-technician.png"
-                  alt="Smart Appliance Services Master Technician"
+                  src="/mj-technician.jpeg"
+                  alt="Smart Appliance Services technician diagnosing a refrigerator with a tablet"
                   fill
                   sizes="(max-width: 768px) 100vw, 420px"
                   className="object-cover object-top hover:scale-105 transition-transform duration-500"
@@ -153,7 +153,7 @@ export default function AboutAdSection({ onOpenBooking }: AboutAdSectionProps) {
                       <ShieldCheck className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="text-xs font-black text-slate-900">Armani & Master Team</div>
+                      <div className="text-xs font-black text-slate-900">Certified Technician</div>
                       <div className="text-[10px] text-slate-500">15+ Years Hands-On Experience</div>
                     </div>
                   </div>
@@ -182,7 +182,7 @@ export default function AboutAdSection({ onOpenBooking }: AboutAdSectionProps) {
           </div>
 
           <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200">
-            <div className="text-xl sm:text-2xl font-black text-emerald-600">$89</div>
+            <div className="text-xl sm:text-2xl font-black text-blue-600">$89</div>
             <div className="text-xs font-bold text-slate-900 mt-0.5">Diagnostic Fee</div>
             <div className="text-[11px] text-slate-500">100% Credited With Repair</div>
           </div>

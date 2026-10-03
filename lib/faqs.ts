@@ -13,7 +13,7 @@ export const faqs = [
   },
   {
     q: "What areas in the DMV do you service?",
-    a: "We service customers within 40 miles of Washington, DC, covering the District, Northern Virginia (Fairfax, Arlington, Alexandria, Loudoun, Prince William, McLean, Reston, Vienna) and Maryland (Montgomery County, Prince George's County, Bethesda, Rockville, Silver Spring, Gaithersburg, and surrounding areas). Enter your ZIP code on our Service Area page to confirm, or call us if you're near the edge.",
+    a: "We are based in Virginia and serve homes within 40 miles of VA. That covers Central and Northern Virginia (Fredericksburg, Stafford, Manassas, Fairfax, Arlington, Alexandria and more), Washington, DC, and parts of Maryland (Silver Spring, Bethesda, Rockville, Gaithersburg, College Park, Bowie, Upper Marlboro and Clinton). Enter your ZIP code on our Service Area page to check, or call us if you're near the edge.",
   },
   {
     q: "Do you have legal licensing and insurance?",
@@ -21,7 +21,7 @@ export const faqs = [
   },
   {
     q: "What are your operating hours?",
-    a: "Our dispatch center and mobile service vans operate Monday through Friday from 8:00 AM to 5:00 PM, and Saturday from 9:00 AM to 4:00 PM. We are closed on Sunday so our technicians can spend time with their families.",
+    a: "Our dispatch center and mobile service vans operate Monday through Friday from 8:00 AM to 5:00 PM, and Saturday from 9:00 AM to 4:00 PM. We are closed Sundays.",
   },
   {
     q: "How can I follow your work or connect on social media?",

@@ -4,7 +4,7 @@ import { useCallback, useRef, useState } from "react";
 import { submitBooking } from "@/app/actions/booking";
 import type { BookingFields } from "@/lib/booking/validate";
 
-const NETWORK_ERROR = "We couldn't submit your request. Please call (571) 459-8155.";
+const NETWORK_ERROR = "We couldn't submit your request. Please call (571) 899-2995 or (571) 992-4222.";
 
 const newAttemptId = () => crypto.randomUUID();
 

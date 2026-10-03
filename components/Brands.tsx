@@ -2,31 +2,29 @@ import { ShieldCheck, Award } from "lucide-react";
 
 export default function Brands() {
   const brands = [
-    { name: "Samsung", type: "Smart Appliances" },
-    { name: "LG Electronics", type: "Inverter DirectDrive" },
-    { name: "Whirlpool", type: "Laundry & Kitchen" },
-    { name: "Bosch", type: "Quiet Dish & Cook" },
-    { name: "GE Profile / Café", type: "Complete Suites" },
-    { name: "KitchenAid", type: "Gourmet Ranges" },
-    { name: "Sub-Zero & Wolf", type: "Luxury Refrigeration" },
-    { name: "Maytag", type: "Commercial Tech" },
-    { name: "Frigidaire", type: "Cooling & Cooking" },
-    { name: "Thermador", type: "Luxury Kitchen Suites" },
-    { name: "Electrolux", type: "Swedish Precision" },
-    { name: "Miele", type: "German Engineering" },
+    { name: "Samsung", logo: "/brands/samsung.svg" },
+    { name: "LG Electronics", logo: "/brands/lg.svg" },
+    { name: "Whirlpool", logo: "/brands/whirlpool.svg" },
+    { name: "Bosch", logo: "/brands/bosch.svg" },
+    { name: "GE Profile / Café", logo: "/brands/ge.svg" },
+    { name: "KitchenAid", logo: "/brands/kitchenaid.svg" },
+    { name: "Maytag", logo: "/brands/maytag.svg" },
+    { name: "Frigidaire", logo: "/brands/frigidaire.svg" },
+    { name: "Electrolux", logo: "/brands/electrolux.svg" },
+    { name: "Miele", logo: "/brands/miele.svg" },
   ];
 
   return (
-    <section className="py-8 sm:py-14 bg-slate-50/70 border-y border-slate-200 relative overflow-hidden">
+    <section className="py-6 sm:py-9 bg-slate-50/70 border-y border-slate-200 relative overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6 mb-6 sm:mb-10 pb-4 sm:pb-6 border-b border-slate-200">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6 mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-slate-200">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold uppercase tracking-wider">
               <Award className="w-3.5 h-3.5 text-blue-600" />
               <span>Comprehensive Brand Expertise</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mt-2 tracking-tight">
+            <h3 className="text-xl sm:text-2xl font-black text-slate-900 mt-1.5 tracking-tight">
               Factory-Trained On All Major Brands & Systems
             </h3>
           </div>
@@ -37,18 +35,19 @@ export default function Brands() {
         </div>
 
         {/* Brands Grid with Clean White Cards */}
-        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-4">
-          {brands.map((brand, idx) => (
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-3">
+          {brands.map((brand) => (
             <div
-              key={idx}
-              className="p-2 sm:p-4 rounded-2xl border border-slate-200 bg-white hover:border-blue-500 hover:shadow-md hover:bg-blue-50/30 hover:-translate-y-0.5 transition-all duration-200 text-center flex flex-col justify-center items-center h-14 sm:h-20 group"
+              key={brand.name}
+              className="p-2 sm:p-3 rounded-xl border border-slate-200 bg-white hover:border-blue-500 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex justify-center items-center h-12 sm:h-16"
             >
-              <p className="text-xs sm:text-sm font-black text-slate-900 tracking-tight leading-tight group-hover:text-blue-600 transition-colors">
-                {brand.name}
-              </p>
-              <p className="hidden sm:block text-[10px] text-slate-500 font-medium mt-0.5">
-                {brand.type}
-              </p>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={brand.logo}
+                alt={brand.name}
+                loading="lazy"
+                className="h-5 sm:h-8 w-full max-w-[7rem] object-contain"
+              />
             </div>
           ))}
         </div>

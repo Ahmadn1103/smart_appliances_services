@@ -122,12 +122,12 @@ export default function SocialBarcodeHub() {
             type="phone"
             title="Direct Dispatch"
             subtitle="Scan with your phone to instantly dial our dispatch desk for same-day service."
-            defaultUrl="tel:5714598155"
+            defaultUrl="tel:5718992995"
             badge="Live DMV Dispatch"
             icon={<Phone className="w-6 h-6 text-white" />}
             brandColor="#2563eb"
             accentGradient="linear-gradient(135deg, #1d4ed8 0%, #38bdf8 100%)"
-            actionText="Call (571) 459-8155"
+            actionText="Call (571) 899-2995"
           />
 
         </div>

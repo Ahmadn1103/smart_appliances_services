@@ -1,6 +1,6 @@
 import { Clock, ExternalLink, Mail, MapPin, Phone } from "lucide-react";
 import BookingSection from "@/components/BookingSection";
-import { EMAIL, SERVICE_RADIUS_MILES } from "@/lib/site";
+import { EMAIL, SERVICE_BASES, SERVICE_RADIUS_MILES } from "@/lib/site";
 
 export default function ContactSection() {
   return (
@@ -21,18 +21,18 @@ export default function ContactSection() {
                 <span>Call Dispatch</span>
               </div>
               <a
-                href="tel:5714598155"
+                href="tel:5718992995"
                 className="block px-4 py-2.5 rounded-xl bg-blue-50/80 border border-blue-200/80 hover:border-blue-400 transition-colors"
               >
                 <span className="text-[11px] font-bold text-blue-700 uppercase tracking-wider block mb-1">Primary DMV Line</span>
-                <span className="text-xl font-black text-slate-900">(571) 459-8155</span>
+                <span className="text-xl font-black text-slate-900">(571) 899-2995</span>
               </a>
               <a
-                href="tel:5718992995"
+                href="tel:5719924222"
                 className="block px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-blue-300 transition-colors"
               >
                 <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Secondary Support Line</span>
-                <span className="text-base font-black text-slate-800">(571) 899-2995</span>
+                <span className="text-base font-black text-slate-800">(571) 992-4222</span>
               </a>
             </div>
 
@@ -74,7 +74,7 @@ export default function ContactSection() {
                   <span>Service Area</span>
                 </div>
                 <p className="text-sm text-slate-600 leading-relaxed">
-                  Mobile service within <strong className="text-slate-900">{SERVICE_RADIUS_MILES} miles of Washington, DC</strong>, across DC, Maryland and Northern Virginia.
+                  Mobile service within <strong className="text-slate-900">{SERVICE_RADIUS_MILES} miles of {SERVICE_BASES}</strong>.
                 </p>
               </div>
 

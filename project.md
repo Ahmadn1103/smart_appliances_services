@@ -80,7 +80,7 @@ Defined once in `lib/appliances.ts` (name, slug, booking label, symptoms, turnar
 - **Coverage**: Built-in, panel-ready, and stainless steel tall-tub dishwashers.
 - **Common Issues Solved**: Water pooling at the bottom, spray arms not spinning, cloudy/gritty glassware, door gasket leaks, cycle failure codes.
 
-### 5. Ranges, Ovens & Cooktops
+### 5. Range, Ovens & Cooktops
 - **Coverage**: Gas ranges, smooth ceramic glass cooktops, electric wall ovens, convection units.
 - **Common Issues Solved**: Gas burners clicking without lighting, bake/broil elements not heating, uneven baking temperatures, locked oven doors.
 

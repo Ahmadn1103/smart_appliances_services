@@ -3,8 +3,8 @@ import type { BookingRequest } from "./validate";
 export type EmailContent = { subject: string; html: string; text: string };
 
 const BUSINESS_NAME = "Smart Appliance Services";
-const PRIMARY_PHONE = "(571) 459-8155";
-const SECONDARY_PHONE = "(571) 899-2995";
+const PRIMARY_PHONE = "(571) 899-2995";
+const SECONDARY_PHONE = "(571) 992-4222";
 
 const oneLine = (value: string) => value.replace(/\s+/g, " ").trim();
 

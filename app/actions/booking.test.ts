@@ -12,7 +12,7 @@ import { submitBooking } from "./booking";
 
 const input = {
   attemptId: "attempt-12345678",
-  service: "Refrigerators & Freezers",
+  service: "Refrigerators",
   name: "Jane Doe",
   phone: "(571) 459-8155",
   email: "jane@example.com",
@@ -78,13 +78,13 @@ describe("submitBooking", () => {
   it("returns a failure with the phone number when Resend returns an error", async () => {
     batchSend.mockResolvedValue({ data: null, error: { name: "validation_error", message: "bad" } });
     const result = await submitBooking(input);
-    expect(result).toEqual({ ok: false, error: expect.stringContaining("(571) 459-8155") });
+    expect(result).toEqual({ ok: false, error: expect.stringContaining("(571) 899-2995") });
   });
 
   it("returns a failure when the Resend call throws", async () => {
     batchSend.mockRejectedValue(new Error("network down"));
     const result = await submitBooking(input);
-    expect(result).toEqual({ ok: false, error: expect.stringContaining("(571) 459-8155") });
+    expect(result).toEqual({ ok: false, error: expect.stringContaining("(571) 899-2995") });
   });
 
   it("treats a response without exactly two ids as a failure", async () => {
@@ -104,7 +104,7 @@ describe("submitBooking", () => {
     async (name) => {
       vi.stubEnv(name, "");
       const result = await submitBooking(input);
-      expect(result).toEqual({ ok: false, error: expect.stringContaining("(571) 459-8155") });
+      expect(result).toEqual({ ok: false, error: expect.stringContaining("(571) 899-2995") });
       expect(batchSend).not.toHaveBeenCalled();
     },
   );

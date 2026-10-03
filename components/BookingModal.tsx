@@ -16,7 +16,7 @@ interface BookingModalProps {
 export default function BookingModal({
   isOpen,
   onClose,
-  preselectedService = "Refrigerators & Freezers",
+  preselectedService = "",
   notesPreload = "",
 }: BookingModalProps) {
   const [service, setService] = useState(preselectedService);
@@ -77,7 +77,7 @@ export default function BookingModal({
                 Reference <strong className="font-mono text-blue-700">{reference}</strong>. A confirmation email is on its way to <strong className="text-slate-900">{email}</strong>.
               </p>
               <p className="text-xs text-slate-600 max-w-xs mx-auto">
-                Our Smart Appliance Services dispatch coordinator will contact you at <strong className="text-blue-700">{phone || "(571) 459-8155"}</strong> shortly to confirm your exact arrival time.
+                Our Smart Appliance Services dispatch coordinator will contact you at <strong className="text-blue-700">{phone || "(571) 899-2995"}</strong> shortly to confirm your exact arrival time.
               </p>
 
               <div className="p-3.5 bg-blue-50 rounded-xl text-xs text-slate-700 border border-blue-200 max-w-sm mx-auto space-y-1 text-left">
@@ -110,10 +110,14 @@ export default function BookingModal({
                   Appliance Service Needed
                 </label>
                 <select id="modal-1"
+                  required
                   value={service}
                   onChange={(e) => setService(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 invalid:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer"
                 >
+                  <option value="" disabled>
+                    Choose your service
+                  </option>
                   {BOOKING_SERVICE_LABELS.map((label) => (
                     <option key={label} value={label}>
                       {label}
@@ -158,7 +162,7 @@ export default function BookingModal({
                   <input id="modal-4"
                     type="tel"
                     required
-                    placeholder="(571) 459-8155"
+                    placeholder="(555) 123-4567"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"

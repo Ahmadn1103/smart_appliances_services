@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CheckCircle2, Clock, Phone, Tag } from "lucide-react";
 import ApplianceIcon from "@/components/ApplianceIcon";
 import BookingSection from "@/components/BookingSection";
@@ -8,9 +8,26 @@ import ZipChecker from "@/components/ZipChecker";
 import { APPLIANCES } from "@/lib/appliances";
 import { SERVICE_RADIUS_MILES } from "@/lib/site";
 
+/** Event the footer fires to open a specific appliance in this section. */
+export const SELECT_APPLIANCE_EVENT = "select-appliance";
+
 export default function ServicesSection() {
   const [selectedSlug, setSelectedSlug] = useState(APPLIANCES[0].slug);
   const selected = APPLIANCES.find((a) => a.slug === selectedSlug) ?? APPLIANCES[0];
+
+  useEffect(() => {
+    // Arrived from another page via /?service=<slug>#services
+    const fromUrl = new URLSearchParams(window.location.search).get("service");
+    if (fromUrl && APPLIANCES.some((a) => a.slug === fromUrl)) setSelectedSlug(fromUrl);
+
+    // Footer link clicked while already on this page
+    const onSelect = (e: Event) => {
+      const slug = (e as CustomEvent<string>).detail;
+      if (APPLIANCES.some((a) => a.slug === slug)) setSelectedSlug(slug);
+    };
+    window.addEventListener(SELECT_APPLIANCE_EVENT, onSelect);
+    return () => window.removeEventListener(SELECT_APPLIANCE_EVENT, onSelect);
+  }, []);
 
   const select = (slug: string) => {
     setSelectedSlug(slug);
@@ -25,7 +42,7 @@ export default function ServicesSection() {
           Select an appliance to see common problems and book your appointment right below.
         </p>
 
-        <ul className="grid grid-cols-4 lg:grid-cols-7 gap-2 sm:gap-4" role="tablist" aria-label="Appliances we repair">
+        <ul className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-4" role="tablist" aria-label="Appliances we repair">
           {APPLIANCES.map((a) => {
             const isSelected = a.slug === selected.slug;
             return (
@@ -102,12 +119,27 @@ export default function ServicesSection() {
               <div className="rounded-2xl bg-blue-50/70 border border-blue-100 p-4 space-y-2.5">
                 <h4 className="text-sm font-black text-slate-900">Do we service your area?</h4>
                 <p className="text-xs text-slate-600">
-                  Enter your ZIP. We serve homes within {SERVICE_RADIUS_MILES} miles of Washington, DC.
+                  Serving Virginia, DC &amp; Maryland, Within {SERVICE_RADIUS_MILES} Miles
                 </p>
                 <ZipChecker service={selected.bookingLabel} />
-                <a href="tel:5714598155" className="flex items-center justify-center gap-2 text-sm font-bold text-slate-700 hover:text-blue-700">
-                  <Phone className="w-4 h-4 text-blue-600" aria-hidden="true" /> Prefer to call? (571) 459-8155
-                </a>
+                <div className="space-y-1.5 pt-0.5">
+                  <p className="text-center text-xs font-bold text-slate-600">Prefer to call?</p>
+                  <div className="grid grid-cols-2 gap-2">
+                    {[
+                      { tel: "5718992995", label: "(571) 899-2995" },
+                      { tel: "5719924222", label: "(571) 992-4222" },
+                    ].map((p) => (
+                      <a
+                        key={p.tel}
+                        href={`tel:${p.tel}`}
+                        className="flex items-center justify-center gap-1.5 rounded-full bg-white border border-blue-200 hover:border-blue-400 px-2 py-2.5 text-[13px] font-bold text-slate-800 whitespace-nowrap active:scale-95 transition-transform"
+                      >
+                        <Phone className="w-3.5 h-3.5 text-blue-600 shrink-0" aria-hidden="true" />
+                        {p.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 

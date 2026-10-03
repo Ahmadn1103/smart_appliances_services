@@ -26,7 +26,7 @@ export default function OpengraphImage() {
         <div style={{ fontSize: 34, color: "#cbd5e1", marginTop: 32 }}>
           $89 diagnostic credited toward repair · 30-day warranty
         </div>
-        <div style={{ fontSize: 40, fontWeight: 700, marginTop: 40 }}>(571) 459-8155</div>
+        <div style={{ fontSize: 40, fontWeight: 700, marginTop: 40 }}>(571) 899-2995</div>
       </div>
     ),
     { ...size },

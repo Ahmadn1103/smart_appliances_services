@@ -1,5 +1,5 @@
 import { checkZip, extractZip } from "../service-area";
-import { SERVICE_RADIUS_MILES } from "../site";
+import { SERVICE_BASES, SERVICE_RADIUS_MILES } from "../site";
 
 export type BookingFields = {
   service: string;
@@ -115,7 +115,7 @@ export function validateBooking(raw: unknown, now: Date = new Date()): Validatio
   if (!zip) return invalid("Please include your 5-digit ZIP code so we can confirm we service your area.");
   if (checkZip(zip) !== "in") {
     return invalid(
-      `Sorry, ${zip} is outside our ${SERVICE_RADIUS_MILES}-mile service area around Washington, DC. Please call us if you're near the edge.`,
+      `Sorry, ${zip} is outside our ${SERVICE_RADIUS_MILES}-mile service area around ${SERVICE_BASES}. Please call us if you're near the edge.`,
     );
   }
 

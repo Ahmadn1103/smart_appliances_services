@@ -5,7 +5,7 @@ import type { BookingRequest } from "./validate";
 const ref = "SMART-ABC234";
 
 const minimal: BookingRequest = {
-  service: "Refrigerators & Freezers",
+  service: "Refrigerators",
   name: "Jane Doe",
   phone: "(571) 459-8155",
   email: "jane@example.com",
@@ -29,13 +29,13 @@ describe("escapeHtml", () => {
 describe("buildBusinessEmail", () => {
   it("puts reference, service and name in the subject", () => {
     expect(buildBusinessEmail(full, ref).subject).toBe(
-      "New booking SMART-ABC234 — Refrigerators & Freezers — Jane Doe",
+      "New booking SMART-ABC234 — Refrigerators — Jane Doe",
     );
   });
 
   it("includes every provided field, with tel and mailto links", () => {
     const { html, text } = buildBusinessEmail(full, ref);
-    for (const part of ["SMART-ABC234", "Refrigerators &amp; Freezers", "Jane Doe", "22201", "2026-10-02", "Morning (8:00 AM - 12:00 PM)", "Sub-Zero"]) {
+    for (const part of ["SMART-ABC234", "Refrigerators", "Jane Doe", "22201", "2026-10-02", "Morning (8:00 AM - 12:00 PM)", "Sub-Zero"]) {
       expect(html).toContain(part);
     }
     expect(html).toContain('href="tel:5714598155"');
@@ -76,10 +76,10 @@ describe("buildCustomerEmail", () => {
 
   it("confirms the details, fee credit, warranty and both phone numbers", () => {
     const { html, text } = buildCustomerEmail(full, ref);
-    for (const part of ["SMART-ABC234", "Refrigerators &amp; Freezers", "2026-10-02", "$89", "30-day", "(571) 459-8155", "(571) 899-2995"]) {
+    for (const part of ["SMART-ABC234", "Refrigerators", "2026-10-02", "$89", "30-day", "(571) 899-2995", "(571) 992-4222"]) {
       expect(html).toContain(part);
     }
-    for (const part of ["SMART-ABC234", "$89", "30-day", "(571) 459-8155", "(571) 899-2995"]) {
+    for (const part of ["SMART-ABC234", "$89", "30-day", "(571) 899-2995", "(571) 992-4222"]) {
       expect(text).toContain(part);
     }
   });

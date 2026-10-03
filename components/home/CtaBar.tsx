@@ -6,15 +6,16 @@ export default function CtaBar() {
   return (
     <section className="bg-slate-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-0 lg:divide-x lg:divide-white/15">
-        <a href="tel:5714598155" className="flex items-center gap-3 lg:pr-6 group">
+        <div className="flex items-center gap-3 lg:pr-6">
           <span className="w-11 h-11 rounded-full bg-blue-600 flex items-center justify-center shrink-0">
             <Phone className="w-5 h-5" aria-hidden="true" />
           </span>
           <span>
             <span className="block text-xs text-slate-300">Call Now</span>
-            <span className="block text-xl font-black text-sky-300 group-hover:text-sky-200">(571) 459-8155</span>
+            <a href="tel:5718992995" className="block text-lg font-black text-sky-300 hover:text-sky-200 leading-tight">(571) 899-2995</a>
+            <a href="tel:5719924222" className="block text-lg font-black text-sky-300 hover:text-sky-200 leading-tight">(571) 992-4222</a>
           </span>
-        </a>
+        </div>
 
         <BookButton className="flex items-center gap-3 lg:px-6 text-left cursor-pointer group">
           <span className="w-11 h-11 rounded-full bg-blue-600 flex items-center justify-center shrink-0">
@@ -32,7 +33,7 @@ export default function CtaBar() {
           </span>
           <span>
             <span className="block text-base font-black">DMV Area</span>
-            <span className="block text-xs text-slate-300 group-hover:text-white">Within {SERVICE_RADIUS_MILES} miles of DC →</span>
+            <span className="block text-xs text-slate-300 group-hover:text-white">Virginia-based, {SERVICE_RADIUS_MILES}-mile radius →</span>
           </span>
         </a>
 

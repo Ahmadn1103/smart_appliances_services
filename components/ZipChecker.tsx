@@ -3,7 +3,7 @@
 import { useId, useState } from "react";
 import { CheckCircle2, MapPin, Phone, XCircle } from "lucide-react";
 import { checkZip, type ZipCheck } from "@/lib/service-area";
-import { SERVICE_RADIUS_MILES } from "@/lib/site";
+import { SERVICE_BASES, SERVICE_RADIUS_MILES } from "@/lib/site";
 import { useSite } from "@/components/SiteShell";
 
 interface ZipCheckerProps {
@@ -83,15 +83,16 @@ export default function ZipChecker({ service, className = "" }: ZipCheckerProps)
             <XCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" aria-hidden="true" />
             <div className="space-y-1.5">
               <p>
-                <span className="font-bold">Sorry, {result.zip} is outside our {SERVICE_RADIUS_MILES}-mile service area</span> around Washington, DC.
+                <span className="font-bold">Sorry, {result.zip} is outside our {SERVICE_RADIUS_MILES}-mile service area</span> around {SERVICE_BASES}.
               </p>
-              <a
-                href="tel:5714598155"
-                className="inline-flex items-center gap-1.5 font-bold text-amber-800 underline underline-offset-2 hover:text-amber-950"
-              >
-                <Phone className="w-3.5 h-3.5" aria-hidden="true" />
-                Near the edge? Call (571) 459-8155
-              </a>
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-bold text-amber-800">
+                <span className="inline-flex items-center gap-1.5">
+                  <Phone className="w-3.5 h-3.5" aria-hidden="true" />
+                  Near the edge? Call
+                </span>
+                <a href="tel:5718992995" className="underline underline-offset-2 hover:text-amber-950">(571) 899-2995</a>
+                <a href="tel:5719924222" className="underline underline-offset-2 hover:text-amber-950">(571) 992-4222</a>
+              </div>
             </div>
           </div>
         )}

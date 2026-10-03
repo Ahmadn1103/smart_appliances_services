@@ -19,7 +19,7 @@ const INPUT =
 const ICON = "w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2";
 
 export default function BookingSection({
-  initialService = BOOKING_SERVICE_LABELS[0],
+  initialService = "",
   lockedService,
   heading = "Schedule Your Appliance Repair",
   subheading = "Book online in seconds. Our dispatch desk will confirm your arrival window.",
@@ -72,15 +72,21 @@ export default function BookingSection({
             </div>
             <div className="flex justify-between gap-3">
               <dt className="text-slate-500">Diagnostic fee</dt>
-              <dd className="font-bold text-emerald-600">$89, credited toward repair</dd>
+              <dd className="font-bold text-blue-600">$89, credited toward repair</dd>
             </div>
           </dl>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5">
             <a
-              href="tel:5714598155"
+              href="tel:5718992995"
               className="w-full sm:w-auto px-5 py-2.5 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold text-sm flex items-center justify-center gap-2"
             >
-              <Phone className="w-4 h-4" /> Call (571) 459-8155
+              <Phone className="w-4 h-4" /> Call (571) 899-2995
+            </a>
+            <a
+              href="tel:5719924222"
+              className="w-full sm:w-auto px-5 py-2.5 rounded-full bg-white border border-blue-300 text-blue-700 font-bold text-sm flex items-center justify-center gap-2"
+            >
+              <Phone className="w-4 h-4" /> Call (571) 992-4222
             </a>
             <button
               type="button"
@@ -102,10 +108,14 @@ export default function BookingSection({
               </label>
               <select
                 id="booking-service"
+                required
                 value={service}
                 onChange={(e) => setService(e.target.value)}
-                className="w-full px-3.5 py-2.5 sm:py-2 text-base sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white text-slate-900 cursor-pointer"
+                className="w-full px-3.5 py-2.5 sm:py-2 text-base sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white text-slate-900 cursor-pointer invalid:text-slate-400"
               >
+                <option value="" disabled>
+                  Choose your service
+                </option>
                 {BOOKING_SERVICE_LABELS.map((label) => (
                   <option key={label} value={label}>
                     {label}
