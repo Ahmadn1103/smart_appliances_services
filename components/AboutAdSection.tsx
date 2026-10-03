@@ -80,15 +80,6 @@ export default function AboutAdSection({ onOpenBooking }: AboutAdSectionProps) {
               </span>
             </div>
           </div>
-
-          <button
-            onClick={() => onOpenBooking()}
-            className="w-full sm:w-auto mt-1 sm:mt-0 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-extrabold text-sm sm:text-base px-5 sm:px-6 py-3 sm:py-3.5 rounded-full shadow-md shadow-blue-500/25 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer shrink-0"
-          >
-            <Calendar className="w-4 h-4 text-white" />
-            <span>Online Repair Schedule</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
         </div>
 
         {/* Center Grid: Story & Visual */}
@@ -192,6 +183,17 @@ export default function AboutAdSection({ onOpenBooking }: AboutAdSectionProps) {
             <div className="text-xs font-bold text-slate-900 mt-0.5">Labor & Parts Warranty</div>
             <div className="text-[11px] text-slate-500">Guaranteed Workmanship</div>
           </div>
+        </div>
+
+        <div className="mt-6 flex justify-center">
+          <button
+            onClick={() => onOpenBooking()}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-extrabold text-sm sm:text-base px-5 sm:px-6 py-3 sm:py-3.5 rounded-full shadow-md shadow-blue-500/25 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer shrink-0"
+          >
+            <Calendar className="w-4 h-4 text-white" />
+            <span>Online Repair Schedule</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </div>
 
       </div>
