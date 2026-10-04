@@ -1,7 +1,30 @@
 // Single source of truth for the appliances we repair. Feeds the homepage tiles, /services,
 // /services/[slug], the booking forms' appliance lists and the sitemap.
 
-export type IconKey = "refrigerator" | "washer" | "dryer" | "oven" | "dishwasher" | "disposal" | "microwave" | "compactor" | "ventCleaning" | "rangeHood" | "wallOven" | "iceMaker" | "freezer" | "wineCooler" | "combo" | "doubleOven" | "cooktop" | "range";
+export type IconKey = "refrigerator" | "washer" | "dryer" | "oven" | "dishwasher" | "disposal" | "microwave" | "compactor" | "ventCleaning" | "rangeHood" | "wallOven" | "iceMaker" | "freezer" | "wineCooler" | "combo" | "doubleOven" | "cooktop" | "range" | "pmCheck";
+
+export const PM_CHECK_LABEL = "Yearly PM Check";
+
+export interface PmBundle {
+  appliances: number;
+  price: number;
+  /** Value sent with a booking and shown in emails. */
+  bookingLabel: string;
+  blurb: string;
+}
+
+const WORD = ["", "one", "two", "three", "four", "five"];
+
+function pmBundle(appliances: number, price: number): PmBundle {
+  return {
+    appliances,
+    price,
+    bookingLabel: `${PM_CHECK_LABEL} - ${appliances} appliances ($${price})`,
+    blurb: `Yearly check and maintenance for any ${WORD[appliances]} of your appliances.`,
+  };
+}
+
+export const PM_BUNDLES: readonly PmBundle[] = [pmBundle(2, 139), pmBundle(3, 189), pmBundle(4, 239), pmBundle(5, 299)];
 
 export interface Appliance {
   slug: string;
@@ -395,9 +418,35 @@ export const APPLIANCES: readonly Appliance[] = [
     metaDescription:
       "Professional dryer vent cleaning to remove lint, restore airflow and reduce fire risk in DC, Maryland and Northern Virginia.",
   },
+  {
+    slug: "yearly-pm-check",
+    bookingLabel: PM_CHECK_LABEL,
+    name: "Yearly PM Check",
+    icon: "pmCheck",
+    tileNote: "Maintenance bundles for 2 to 5 appliances",
+    tagline: "Schedule your yearly visit online or by phone",
+    description:
+      "A yearly preventive maintenance visit helps catch small problems before they turn into breakdowns. Pick the bundle that matches the appliances you want checked.",
+    commonIssues: [
+      "Catch small problems before they become repairs",
+      "Choose a bundle for 2 to 5 appliances",
+      "One scheduled visit, one bundle price",
+    ],
+    turnaround: "Annual maintenance",
+    metaTitle: "Yearly PM Check in DC, MD & Northern VA",
+    metaDescription:
+      "Yearly preventive maintenance bundles for 2 to 5 appliances in DC, Maryland and Northern Virginia, starting at $139.",
+  },
 ];
 
-export const BOOKING_SERVICE_LABELS: readonly string[] = APPLIANCES.map((a) => a.bookingLabel);
+export const BOOKING_SERVICE_LABELS: readonly string[] = [
+  ...APPLIANCES.map((a) => a.bookingLabel),
+  ...PM_BUNDLES.map((b) => b.bookingLabel),
+];
+
+export function isPmService(service: string): boolean {
+  return service.startsWith(PM_CHECK_LABEL);
+}
 
 export function getAppliance(slug: string): Appliance | undefined {
   return APPLIANCES.find((a) => a.slug === slug);

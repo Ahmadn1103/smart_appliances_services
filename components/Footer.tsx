@@ -27,14 +27,25 @@ function InstagramIcon({ className = "w-4 h-4" }: { className?: string }) {
   );
 }
 
-/** Scroll up to the Services section even when the URL already ends in #services; on other pages the link navigates home. */
+/**
+ * Footer service links jump to the booking panel for that appliance (not the tile grid), even when the URL
+ * already has the hash; on other pages the link navigates home to the same spot.
+ */
 function goToServices(e: React.MouseEvent<HTMLAnchorElement>, slug?: string) {
   const section = document.getElementById("services");
   if (!section) return;
   e.preventDefault();
-  if (slug) window.dispatchEvent(new CustomEvent("select-appliance", { detail: slug }));
-  section.scrollIntoView({ behavior: "smooth", block: "start" });
-  history.replaceState(null, "", "#services");
+  if (!slug) {
+    section.scrollIntoView({ behavior: "smooth", block: "start" });
+    history.replaceState(null, "", "#services");
+    return;
+  }
+  window.dispatchEvent(new CustomEvent("select-appliance", { detail: slug }));
+  // Wait a frame so the panel for the chosen appliance has rendered before scrolling to it.
+  requestAnimationFrame(() => {
+    document.getElementById("appliance-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+  history.replaceState(null, "", "#appliance-panel");
 }
 
 export default function Footer({ onOpenSocial }: FooterProps) {
@@ -164,7 +175,7 @@ export default function Footer({ onOpenSocial }: FooterProps) {
               {APPLIANCES.map((appliance) => (
                 <li key={appliance.slug}>
                   <Link
-                    href={`/?service=${appliance.slug}#services`}
+                    href={`/?service=${appliance.slug}#appliance-panel`}
                     onClick={(e) => goToServices(e, appliance.slug)}
                     className="group inline-flex items-center gap-2 hover:text-blue-600 transition-all duration-200 hover:translate-x-0.5"
                   >
@@ -295,6 +306,20 @@ export default function Footer({ onOpenSocial }: FooterProps) {
                   Scan with your phone camera
                 </span>
               </div>
+
+              <a
+                href={qrOptions[activeQrType].url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`w-full inline-flex items-center justify-center gap-1.5 py-2 rounded-full text-white text-xs font-bold transition-colors ${
+                  activeQrType === "facebook"
+                    ? "bg-blue-600 hover:bg-blue-700"
+                    : "bg-pink-600 hover:bg-pink-700"
+                }`}
+              >
+                <span>Open {qrOptions[activeQrType].label}</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
             </div>
           </div>
 

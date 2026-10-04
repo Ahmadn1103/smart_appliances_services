@@ -93,8 +93,13 @@ writeFileSync(new URL("../lib/service-area-zips.ts", import.meta.url), out);
 console.log(`${zips.length} ZIPs within ${RADIUS_MILES} miles`);
 
 const STATE_NAMES = { VA: "Virginia", DC: "Washington, DC", MD: "Maryland" };
+const STATE_ORDER = ["VA", "DC", "MD"];
+const stateRank = (code) => {
+  const i = STATE_ORDER.indexOf(code);
+  return i === -1 ? STATE_ORDER.length : i;
+};
 const states = Object.keys(byState)
-  .sort((a, b) => Object.keys(byState[b]).length - Object.keys(byState[a]).length)
+  .sort((a, b) => stateRank(a) - stateRank(b))
   .map((code) => ({
     code,
     name: STATE_NAMES[code] ?? code,

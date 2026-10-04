@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useBookingSubmit } from "@/components/useBookingSubmit";
-import { BOOKING_SERVICE_LABELS } from "@/lib/appliances";
+import { BOOKING_SERVICE_LABELS, isPmService } from "@/lib/appliances";
 import HoneypotField from "@/components/HoneypotField";
 import { X, Calendar, Phone, CheckCircle2, ShieldCheck, Tag, Sparkles } from "lucide-react";
 
@@ -35,6 +35,8 @@ export default function BookingModal({
 
   if (!isOpen) return null;
 
+  const isPm = isPmService(service);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await submit({ service, name, phone, email, address, notes, website });
@@ -52,7 +54,9 @@ export default function BookingModal({
             </div>
             <div>
               <h3 className="font-extrabold text-sm sm:text-base text-slate-900">Schedule Dispatch</h3>
-              <p className="text-[11px] text-blue-700 font-medium">$89 Diagnostic (100% Credited With Repair)</p>
+              <p className="text-[11px] text-blue-700 font-medium">
+                {isPm ? "Yearly maintenance bundle, one visit" : "$89 Diagnostic (100% Credited With Repair)"}
+              </p>
             </div>
           </div>
           <button
@@ -85,7 +89,11 @@ export default function BookingModal({
                   <Sparkles className="w-3.5 h-3.5 text-blue-600" />
                   <span>Backed By Our Customer Guarantee</span>
                 </div>
-                <div>✓ $89 Diagnostic Fee 100% credited toward your approved repair</div>
+                <div>
+                  {isPm
+                    ? "✓ One scheduled visit at your bundle price"
+                    : "✓ $89 Diagnostic Fee 100% credited toward your approved repair"}
+                </div>
                 <div>✓ Backed by our 30-Day Labor & Parts Warranty</div>
               </div>
 
@@ -186,11 +194,11 @@ export default function BookingModal({
 
               <div>
                 <label htmlFor="modal-6" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                  Appliance Brand & Issue Description
+                  Appliance Brand, Model & Issue Description
                 </label>
                 <textarea id="modal-6"
                   rows={2}
-                  placeholder="e.g. Samsung refrigerator warm, Whirlpool washer not spinning..."
+                  placeholder="e.g. Samsung RF28R7551SR refrigerator not cooling"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none"
@@ -200,7 +208,7 @@ export default function BookingModal({
               <div className="p-3 bg-blue-50 border border-blue-200 rounded-xl flex items-center justify-between text-xs text-slate-700">
                 <div className="flex items-center gap-1.5">
                   <Tag className="w-4 h-4 text-blue-600" />
-                  <span className="font-bold text-blue-700">$89 Diagnostic</span>
+                  <span className="font-bold text-blue-700">{isPm ? "Yearly PM Check" : "$89 Diagnostic"}</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <ShieldCheck className="w-4 h-4 text-emerald-600" />

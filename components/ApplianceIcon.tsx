@@ -1,4 +1,4 @@
-import { AirVent, ChefHat, CircleDot, Rows2, Shirt, ThermometerSnowflake, Wine, CookingPot, Flame, Snowflake, Fan, Microwave, Refrigerator, Sparkles, Trash2, UtensilsCrossed, WashingMachine, Wind } from "lucide-react";
+import { AirVent, CalendarCheck,ChefHat, CircleDot, Rows2, Shirt, ThermometerSnowflake, Wine, CookingPot, Flame, Snowflake, Fan, Microwave, Refrigerator, Sparkles, Trash2, UtensilsCrossed, WashingMachine, Wind } from "lucide-react";
 import type { IconKey } from "@/lib/appliances";
 
 const ICONS = {
@@ -20,6 +20,7 @@ const ICONS = {
   doubleOven: Rows2,
   cooktop: CircleDot,
   range: ChefHat,
+  pmCheck: CalendarCheck,
 } as const;
 
 export default function ApplianceIcon({ icon, className }: { icon: IconKey; className?: string }) {

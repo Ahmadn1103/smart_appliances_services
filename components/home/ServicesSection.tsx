@@ -5,7 +5,8 @@ import { CheckCircle2, Clock, Phone, Tag } from "lucide-react";
 import ApplianceIcon from "@/components/ApplianceIcon";
 import BookingSection from "@/components/BookingSection";
 import ZipChecker from "@/components/ZipChecker";
-import { APPLIANCES } from "@/lib/appliances";
+import YearlyPmPanel from "@/components/home/YearlyPmPanel";
+import { APPLIANCES, PM_CHECK_LABEL } from "@/lib/appliances";
 import { SERVICE_RADIUS_MILES } from "@/lib/site";
 
 /** Event the footer fires to open a specific appliance in this section. */
@@ -16,9 +17,15 @@ export default function ServicesSection() {
   const selected = APPLIANCES.find((a) => a.slug === selectedSlug) ?? APPLIANCES[0];
 
   useEffect(() => {
-    // Arrived from another page via /?service=<slug>#services
+    // Arrived from another page via /?service=<slug>#appliance-panel
     const fromUrl = new URLSearchParams(window.location.search).get("service");
-    if (fromUrl && APPLIANCES.some((a) => a.slug === fromUrl)) setSelectedSlug(fromUrl);
+    if (fromUrl && APPLIANCES.some((a) => a.slug === fromUrl)) {
+      setSelectedSlug(fromUrl);
+      if (window.location.hash === "#appliance-panel") {
+        // The panel content changes after hydration, so re-anchor once it has rendered.
+        requestAnimationFrame(() => document.getElementById("appliance-panel")?.scrollIntoView({ block: "start" }));
+      }
+    }
 
     // Footer link clicked while already on this page
     const onSelect = (e: Event) => {
@@ -74,6 +81,9 @@ export default function ServicesSection() {
           })}
         </ul>
 
+        {selected.bookingLabel === PM_CHECK_LABEL ? (
+          <YearlyPmPanel />
+        ) : (
         <div
           id="appliance-panel"
           role="tabpanel"
@@ -152,6 +162,7 @@ export default function ServicesSection() {
             </div>
           </div>
         </div>
+        )}
       </div>
     </section>
   );

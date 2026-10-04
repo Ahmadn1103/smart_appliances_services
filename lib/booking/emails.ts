@@ -1,3 +1,4 @@
+import { isPmService } from "../appliances";
 import type { BookingRequest } from "./validate";
 
 export type EmailContent = { subject: string; html: string; text: string };
@@ -77,6 +78,10 @@ export function buildBusinessEmail(request: BookingRequest, reference: string): 
 }
 
 export function buildCustomerEmail(request: BookingRequest, reference: string): EmailContent {
+  const feeNote = isPmService(request.service)
+    ? "Your yearly maintenance bundle is one scheduled visit at the bundle price you chose, backed by a 30-day labor & parts warranty."
+    : "The $89 diagnostic fee is credited 100% toward your approved repair, and our repairs are backed by a 30-day labor & parts warranty.";
+
   const rows: Row[] = [
     { label: "Service", value: request.service },
     { label: "Address / ZIP", value: request.address },
@@ -90,7 +95,7 @@ export function buildCustomerEmail(request: BookingRequest, reference: string): 
       `<p style="margin:0 0 16px;">Our dispatch team will call you shortly to confirm your arrival window.</p>` +
       `<p style="margin:0 0 16px;padding:12px 16px;background:#eff6ff;border-left:4px solid #00b4d8;border-radius:6px;">Your reference: <strong style="color:#1053b8;">${escapeHtml(reference)}</strong></p>` +
       `<table role="presentation" cellpadding="0" cellspacing="0">${renderRows(rows)}</table>` +
-      `<p style="margin:16px 0 0;">The $89 diagnostic fee is credited 100% toward your approved repair, and our repairs are backed by a 30-day labor &amp; parts warranty.</p>` +
+      `<p style="margin:16px 0 0;">${escapeHtml(feeNote)}</p>` +
       `<p style="margin:16px 0 0;">Questions? Call <a href="${telHref(PRIMARY_PHONE)}" style="color:#1053b8;">${PRIMARY_PHONE}</a> or <a href="${telHref(SECONDARY_PHONE)}" style="color:#1053b8;">${SECONDARY_PHONE}</a>, or just reply to this email.</p>`,
   );
 
@@ -101,7 +106,7 @@ export function buildCustomerEmail(request: BookingRequest, reference: string): 
     `Your reference: ${reference}`,
     renderText(rows),
     "",
-    "The $89 diagnostic fee is credited 100% toward your approved repair, and our repairs are backed by a 30-day labor & parts warranty.",
+    feeNote,
     "",
     `Questions? Call ${PRIMARY_PHONE} or ${SECONDARY_PHONE}, or just reply to this email.`,
     `— ${BUSINESS_NAME}`,
